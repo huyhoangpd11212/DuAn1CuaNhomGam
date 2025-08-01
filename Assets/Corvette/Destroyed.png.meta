@@ -1,0 +1,1767 @@
+fileFormatVersion: 2
+guid: d7d27c17bbfb99d4c851ff7670beaaa6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2030006277012047187
+    second: Destroyed_0
+  - first:
+      213: -5132642186515931051
+    second: Destroyed_1
+  - first:
+      213: 4010946958018046920
+    second: Destroyed_2
+  - first:
+      213: 621554519350296898
+    second: Destroyed_3
+  - first:
+      213: 1415852004270601806
+    second: Destroyed_4
+  - first:
+      213: -1953867869414577751
+    second: Destroyed_5
+  - first:
+      213: -8317546020614562291
+    second: Destroyed_6
+  - first:
+      213: -4942805557840492161
+    second: Destroyed_7
+  - first:
+      213: -4622192374838743209
+    second: Destroyed_8
+  - first:
+      213: -3591588394763247863
+    second: Destroyed_9
+  - first:
+      213: 7350188880652365701
+    second: Destroyed_10
+  - first:
+      213: -6060027748469579647
+    second: Destroyed_11
+  - first:
+      213: 532232273609338541
+    second: Destroyed_12
+  - first:
+      213: 6839944579304673153
+    second: Destroyed_13
+  - first:
+      213: 957388183334513240
+    second: Destroyed_14
+  - first:
+      213: -7796532826557627580
+    second: Destroyed_15
+  - first:
+      213: -2570395379174388729
+    second: Destroyed_16
+  - first:
+      213: 1880995717371383432
+    second: Destroyed_17
+  - first:
+      213: 3917187731032548568
+    second: Destroyed_18
+  - first:
+      213: 3877338742066689881
+    second: Destroyed_19
+  - first:
+      213: -6165523653091950174
+    second: Destroyed_20
+  - first:
+      213: 4845859093425228827
+    second: Destroyed_21
+  - first:
+      213: -534365495661324704
+    second: Destroyed_22
+  - first:
+      213: -4397151323220223725
+    second: Destroyed_23
+  - first:
+      213: 6773600224433509137
+    second: Destroyed_24
+  - first:
+      213: 5924051612719886553
+    second: Destroyed_25
+  - first:
+      213: 738421241453586439
+    second: Destroyed_26
+  - first:
+      213: -71436083029968730
+    second: Destroyed_27
+  - first:
+      213: -7312991516798633040
+    second: Destroyed_28
+  - first:
+      213: -1938270763823040345
+    second: Destroyed_29
+  - first:
+      213: -4322710256460655043
+    second: Destroyed_30
+  - first:
+      213: 6289527363294274330
+    second: Destroyed_31
+  - first:
+      213: 2656826846585727828
+    second: Destroyed_32
+  - first:
+      213: -4179431905259365103
+    second: Destroyed_33
+  - first:
+      213: -1070143900771055965
+    second: Destroyed_34
+  - first:
+      213: 4532344470723358947
+    second: Destroyed_35
+  - first:
+      213: -8087342144022297264
+    second: Destroyed_36
+  - first:
+      213: -9094974836271058645
+    second: Destroyed_37
+  - first:
+      213: 4094150222211771025
+    second: Destroyed_38
+  - first:
+      213: 4297251757505940805
+    second: Destroyed_39
+  - first:
+      213: 345590493190060743
+    second: Destroyed_40
+  - first:
+      213: 5674526087704888324
+    second: Destroyed_41
+  - first:
+      213: -7232460777210579222
+    second: Destroyed_42
+  - first:
+      213: 6663894435182105584
+    second: Destroyed_43
+  - first:
+      213: 808868475008649181
+    second: Destroyed_44
+  - first:
+      213: -4422170640794386228
+    second: Destroyed_45
+  - first:
+      213: 8404786534626489593
+    second: Destroyed_46
+  - first:
+      213: 3819198478020602208
+    second: Destroyed_47
+  - first:
+      213: 713791472005582455
+    second: Destroyed_48
+  - first:
+      213: -7308872936475920935
+    second: Destroyed_49
+  - first:
+      213: -7755407324605456626
+    second: Destroyed_50
+  - first:
+      213: 4067138047065128571
+    second: Destroyed_51
+  - first:
+      213: 1680516148253159316
+    second: Destroyed_52
+  - first:
+      213: -5760598093462480119
+    second: Destroyed_53
+  - first:
+      213: 7235855636123363381
+    second: Destroyed_54
+  - first:
+      213: 1234782822478940676
+    second: Destroyed_55
+  - first:
+      213: 1902852582496750817
+    second: Destroyed_56
+  - first:
+      213: -814221401302156107
+    second: Destroyed_57
+  - first:
+      213: 6374578628346608245
+    second: Destroyed_58
+  - first:
+      213: 5254693946501670542
+    second: Destroyed_59
+  - first:
+      213: -4722774384541950373
+    second: Destroyed_60
+  - first:
+      213: 4152914088966502599
+    second: Destroyed_61
+  - first:
+      213: -4550866550559389258
+    second: Destroyed_62
+  - first:
+      213: 596849194224971817
+    second: Destroyed_63
+  - first:
+      213: 8261941896107559265
+    second: Destroyed_64
+  - first:
+      213: -4671398210626896928
+    second: Destroyed_65
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Destroyed_0
+      rect:
+        serializedVersion: 2
+        x: 1937
+        y: 40
+        width: 171
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daa32e6eb08f3d3e0800000000000000
+      internalID: -2030006277012047187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_1
+      rect:
+        serializedVersion: 2
+        x: 2129
+        y: 32
+        width: 171
+        height: 159
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 550a881102135c8b0800000000000000
+      internalID: -5132642186515931051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_2
+      rect:
+        serializedVersion: 2
+        x: 2321
+        y: 0
+        width: 171
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cb6995e10fb9a730800000000000000
+      internalID: 4010946958018046920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_3
+      rect:
+        serializedVersion: 2
+        x: 2562
+        y: 175
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 241c96eca8430a800800000000000000
+      internalID: 621554519350296898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_4
+      rect:
+        serializedVersion: 2
+        x: 2570
+        y: 173
+        width: 39
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e46f21975ed16a310800000000000000
+      internalID: 1415852004270601806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_5
+      rect:
+        serializedVersion: 2
+        x: 2725
+        y: 171
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a9ae79568772e4e0800000000000000
+      internalID: -1953867869414577751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_6
+      rect:
+        serializedVersion: 2
+        x: 2752
+        y: 183
+        width: 22
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0e1e4666f3229c80800000000000000
+      internalID: -8317546020614562291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_7
+      rect:
+        serializedVersion: 2
+        x: 2897
+        y: 16
+        width: 171
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7947138880a76bb0800000000000000
+      internalID: -4942805557840492161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_8
+      rect:
+        serializedVersion: 2
+        x: 3089
+        y: 24
+        width: 171
+        height: 168
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75fa736468caadfb0800000000000000
+      internalID: -4622192374838743209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_9
+      rect:
+        serializedVersion: 2
+        x: 3335
+        y: 183
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90f98be426d182ec0800000000000000
+      internalID: -3591588394763247863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_10
+      rect:
+        serializedVersion: 2
+        x: 3461
+        y: 22
+        width: 183
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58f6f4f08dd110660800000000000000
+      internalID: 7350188880652365701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_11
+      rect:
+        serializedVersion: 2
+        x: 3673
+        y: 140
+        width: 19
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 180e573ced476eba0800000000000000
+      internalID: -6060027748469579647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_12
+      rect:
+        serializedVersion: 2
+        x: 1745
+        y: 41
+        width: 171
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daeab76de6ed26700800000000000000
+      internalID: 532232273609338541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_13
+      rect:
+        serializedVersion: 2
+        x: 1813
+        y: 173
+        width: 14
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18f40d4fa5d5cee50800000000000000
+      internalID: 6839944579304673153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_14
+      rect:
+        serializedVersion: 2
+        x: 2503
+        y: 0
+        width: 189
+        height: 182
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85a6fc3fa73594d00800000000000000
+      internalID: 957388183334513240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_15
+      rect:
+        serializedVersion: 2
+        x: 2698
+        y: 1
+        width: 187
+        height: 181
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4434c59b3b62dc390800000000000000
+      internalID: -7796532826557627580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_16
+      rect:
+        serializedVersion: 2
+        x: 2886
+        y: 163
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70c410c650f145cd0800000000000000
+      internalID: -2570395379174388729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_17
+      rect:
+        serializedVersion: 2
+        x: 3317
+        y: 156
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88ec3f593a3aa1a10800000000000000
+      internalID: 1880995717371383432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_18
+      rect:
+        serializedVersion: 2
+        x: 1553
+        y: 41
+        width: 171
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d4a6babc75ac5630800000000000000
+      internalID: 3917187731032548568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_19
+      rect:
+        serializedVersion: 2
+        x: 1607
+        y: 153
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 957bebafa031fc530800000000000000
+      internalID: 3877338742066689881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_20
+      rect:
+        serializedVersion: 2
+        x: 2694
+        y: 146
+        width: 19
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a18f2367e8af6aa0800000000000000
+      internalID: -6165523653091950174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_21
+      rect:
+        serializedVersion: 2
+        x: 3281
+        y: 19
+        width: 171
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1c0537cb23ff3340800000000000000
+      internalID: 4845859093425228827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_22
+      rect:
+        serializedVersion: 2
+        x: 3379
+        y: 159
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06691e2b96d8598f0800000000000000
+      internalID: -534365495661324704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_23
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 41
+        width: 171
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 319d1db2b2e2af2c0800000000000000
+      internalID: -4397151323220223725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_24
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 41
+        width: 171
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1139ddb1489a00e50800000000000000
+      internalID: 6773600224433509137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_25
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 36
+        width: 171
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d0bf370e85763250800000000000000
+      internalID: 5924051612719886553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_26
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 16
+        width: 171
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 708a17fe4366f3a00800000000000000
+      internalID: 738421241453586439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_27
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 14
+        width: 171
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a87adec245320ff0800000000000000
+      internalID: -71436083029968730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_28
+      rect:
+        serializedVersion: 2
+        x: 977
+        y: 11
+        width: 171
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bbb5cb16f8038a90800000000000000
+      internalID: -7312991516798633040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_29
+      rect:
+        serializedVersion: 2
+        x: 1169
+        y: 5
+        width: 171
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a87dcb7201e915e0800000000000000
+      internalID: -1938270763823040345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_30
+      rect:
+        serializedVersion: 2
+        x: 1361
+        y: 14
+        width: 171
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3699b8ace5a204c0800000000000000
+      internalID: -4322710256460655043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_31
+      rect:
+        serializedVersion: 2
+        x: 2689
+        y: 101
+        width: 14
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a13214640d3e84750800000000000000
+      internalID: 6289527363294274330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_32
+      rect:
+        serializedVersion: 2
+        x: 2878
+        y: 106
+        width: 7
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45ba674c0f1fed420800000000000000
+      internalID: 2656826846585727828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_33
+      rect:
+        serializedVersion: 2
+        x: 2879
+        y: 123
+        width: 6
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11dd41463dcaff5c0800000000000000
+      internalID: -4179431905259365103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_34
+      rect:
+        serializedVersion: 2
+        x: 3663
+        y: 41
+        width: 173
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a68df7cac51621f0800000000000000
+      internalID: -1070143900771055965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_35
+      rect:
+        serializedVersion: 2
+        x: 3857
+        y: 41
+        width: 171
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e0fb21684f16ee30800000000000000
+      internalID: 4532344470723358947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_36
+      rect:
+        serializedVersion: 2
+        x: 2691
+        y: 82
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05541882b2df3cf80800000000000000
+      internalID: -8087342144022297264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_37
+      rect:
+        serializedVersion: 2
+        x: 3655
+        y: 95
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2172fad29828c180800000000000000
+      internalID: -9094974836271058645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_38
+      rect:
+        serializedVersion: 2
+        x: 2692
+        y: 60
+        width: 10
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19ae4047fe751d830800000000000000
+      internalID: 4094150222211771025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_39
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 58
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54d8094a4b7e2ab30800000000000000
+      internalID: 4297251757505940805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_40
+      rect:
+        serializedVersion: 2
+        x: 3650
+        y: 75
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ca7858f8b8cbc400800000000000000
+      internalID: 345590493190060743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_41
+      rect:
+        serializedVersion: 2
+        x: 3653
+        y: 65
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 404465e6967ffbe40800000000000000
+      internalID: 5674526087704888324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_42
+      rect:
+        serializedVersion: 2
+        x: 1542
+        y: 0
+        width: 115
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae6fa6a0e3321ab90800000000000000
+      internalID: -7232460777210579222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_43
+      rect:
+        serializedVersion: 2
+        x: 1844
+        y: 33
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f35bb59ea8ea7c50800000000000000
+      internalID: 6663894435182105584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_44
+      rect:
+        serializedVersion: 2
+        x: 1856
+        y: 39
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd707eaa79da93b00800000000000000
+      internalID: 808868475008649181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_45
+      rect:
+        serializedVersion: 2
+        x: 2888
+        y: 35
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc00a4b5b3b41a2c0800000000000000
+      internalID: -4422170640794386228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_46
+      rect:
+        serializedVersion: 2
+        x: 3648
+        y: 34
+        width: 11
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f4f561a2dcc3a470800000000000000
+      internalID: 8404786534626489593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_47
+      rect:
+        serializedVersion: 2
+        x: 1736
+        y: 5
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0696121e7c4800530800000000000000
+      internalID: 3819198478020602208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_48
+      rect:
+        serializedVersion: 2
+        x: 1752
+        y: 2
+        width: 91
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77e889cdf85e7e900800000000000000
+      internalID: 713791472005582455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_49
+      rect:
+        serializedVersion: 2
+        x: 1934
+        y: 14
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d5f2e0d9caa19a90800000000000000
+      internalID: -7308872936475920935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_50
+      rect:
+        serializedVersion: 2
+        x: 1944
+        y: 0
+        width: 105
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0fdd60d0224f5490800000000000000
+      internalID: -7755407324605456626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_51
+      rect:
+        serializedVersion: 2
+        x: 2112
+        y: 13
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7efac35180617830800000000000000
+      internalID: 4067138047065128571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_52
+      rect:
+        serializedVersion: 2
+        x: 3176
+        y: 16
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49fefe77884625710800000000000000
+      internalID: 1680516148253159316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_53
+      rect:
+        serializedVersion: 2
+        x: 3648
+        y: 23
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90b50611e8e3e00b0800000000000000
+      internalID: -5760598093462480119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_54
+      rect:
+        serializedVersion: 2
+        x: 1370
+        y: 7
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53824252d5cea6460800000000000000
+      internalID: 7235855636123363381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_55
+      rect:
+        serializedVersion: 2
+        x: 1429
+        y: 1
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40a8c945f64d22110800000000000000
+      internalID: 1234782822478940676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_56
+      rect:
+        serializedVersion: 2
+        x: 2126
+        y: 0
+        width: 34
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ec47af875a486a10800000000000000
+      internalID: 1902852582496750817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_57
+      rect:
+        serializedVersion: 2
+        x: 2160
+        y: 0
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bc3dde03fd43b4f0800000000000000
+      internalID: -814221401302156107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_58
+      rect:
+        serializedVersion: 2
+        x: 2185
+        y: 3
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57a756f0d7d077850800000000000000
+      internalID: 6374578628346608245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_59
+      rect:
+        serializedVersion: 2
+        x: 2302
+        y: 11
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e86a0a4cd4c6ce840800000000000000
+      internalID: 5254693946501670542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_60
+      rect:
+        serializedVersion: 2
+        x: 2494
+        y: 11
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5e101738b5557eb0800000000000000
+      internalID: -4722774384541950373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_61
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 0
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c8309f5c5d12a930800000000000000
+      internalID: 4152914088966502599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_62
+      rect:
+        serializedVersion: 2
+        x: 2310
+        y: 2
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b943b9dbf218d0c0800000000000000
+      internalID: -4550866550559389258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_63
+      rect:
+        serializedVersion: 2
+        x: 2320
+        y: 0
+        width: 13
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 920f14e0e2f684800800000000000000
+      internalID: 596849194224971817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_64
+      rect:
+        serializedVersion: 2
+        x: 2502
+        y: 2
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1698860816058a270800000000000000
+      internalID: 8261941896107559265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Destroyed_65
+      rect:
+        serializedVersion: 2
+        x: 2512
+        y: 0
+        width: 13
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0eb303bd31cdb2fb0800000000000000
+      internalID: -4671398210626896928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
