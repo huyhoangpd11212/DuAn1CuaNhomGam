@@ -291,6 +291,45 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -1759,7 +1798,73 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Destroyed_0: -2030006277012047187
+      Destroyed_1: -5132642186515931051
+      Destroyed_10: 7350188880652365701
+      Destroyed_11: -6060027748469579647
+      Destroyed_12: 532232273609338541
+      Destroyed_13: 6839944579304673153
+      Destroyed_14: 957388183334513240
+      Destroyed_15: -7796532826557627580
+      Destroyed_16: -2570395379174388729
+      Destroyed_17: 1880995717371383432
+      Destroyed_18: 3917187731032548568
+      Destroyed_19: 3877338742066689881
+      Destroyed_2: 4010946958018046920
+      Destroyed_20: -6165523653091950174
+      Destroyed_21: 4845859093425228827
+      Destroyed_22: -534365495661324704
+      Destroyed_23: -4397151323220223725
+      Destroyed_24: 6773600224433509137
+      Destroyed_25: 5924051612719886553
+      Destroyed_26: 738421241453586439
+      Destroyed_27: -71436083029968730
+      Destroyed_28: -7312991516798633040
+      Destroyed_29: -1938270763823040345
+      Destroyed_3: 621554519350296898
+      Destroyed_30: -4322710256460655043
+      Destroyed_31: 6289527363294274330
+      Destroyed_32: 2656826846585727828
+      Destroyed_33: -4179431905259365103
+      Destroyed_34: -1070143900771055965
+      Destroyed_35: 4532344470723358947
+      Destroyed_36: -8087342144022297264
+      Destroyed_37: -9094974836271058645
+      Destroyed_38: 4094150222211771025
+      Destroyed_39: 4297251757505940805
+      Destroyed_4: 1415852004270601806
+      Destroyed_40: 345590493190060743
+      Destroyed_41: 5674526087704888324
+      Destroyed_42: -7232460777210579222
+      Destroyed_43: 6663894435182105584
+      Destroyed_44: 808868475008649181
+      Destroyed_45: -4422170640794386228
+      Destroyed_46: 8404786534626489593
+      Destroyed_47: 3819198478020602208
+      Destroyed_48: 713791472005582455
+      Destroyed_49: -7308872936475920935
+      Destroyed_5: -1953867869414577751
+      Destroyed_50: -7755407324605456626
+      Destroyed_51: 4067138047065128571
+      Destroyed_52: 1680516148253159316
+      Destroyed_53: -5760598093462480119
+      Destroyed_54: 7235855636123363381
+      Destroyed_55: 1234782822478940676
+      Destroyed_56: 1902852582496750817
+      Destroyed_57: -814221401302156107
+      Destroyed_58: 6374578628346608245
+      Destroyed_59: 5254693946501670542
+      Destroyed_6: -8317546020614562291
+      Destroyed_60: -4722774384541950373
+      Destroyed_61: 4152914088966502599
+      Destroyed_62: -4550866550559389258
+      Destroyed_63: 596849194224971817
+      Destroyed_64: 8261941896107559265
+      Destroyed_65: -4671398210626896928
+      Destroyed_7: -4942805557840492161
+      Destroyed_8: -4622192374838743209
+      Destroyed_9: -3591588394763247863
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

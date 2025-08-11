@@ -124,6 +124,12 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log(gameObject.name + " đã chết!");
 
+        // Phát âm thanh enemy nổ
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlayEnemyExplosionSound();
+        }
+
         // Gọi phương thức mới trong EnemySpawner để đếm kẻ địch
         if (EnemySpawner.Instance != null)
         {

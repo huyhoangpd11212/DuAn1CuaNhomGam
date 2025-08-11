@@ -204,6 +204,12 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        // Phát âm thanh bắn đạn
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlayPlayerShootSound();
+        }
+
         for (int i = 0; i < bulletsPerShot; i++)
         {
             float offset = 0;
@@ -283,6 +289,12 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log("Người chơi nhận " + damageAmount + " sát thương. Máu hiện tại: " + currentHealth);
 
+        // Phát âm thanh bị thương
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlayPlayerExplosionSound();
+        }
+
         // Cập nhật UI trái tim
         if (healthUIController != null)
         {
@@ -333,8 +345,38 @@ public class PlayerController : MonoBehaviour
             playerBodyAnimator.SetTrigger("Explode");
         }
 
+        // Gọi Game Over sau khi animation nổ
         float explosionDuration = 1.0f;
+        StartCoroutine(TriggerGameOverAfterExplosion(explosionDuration));
+        
         Destroy(gameObject, explosionDuration);
+    }
+
+    private System.Collections.IEnumerator TriggerGameOverAfterExplosion(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        // Gọi GameStateManager để hiển thị Game Over
+        if (GameStateManager.instance != null)
+        {
+            GameStateManager.instance.OnPlayerDeath();
+        }
+        else
+        {
+            // Fallback nếu không có GameStateManager - tìm GameOverPanel trực tiếp
+            GameObject gameOverPanel = GameObject.Find("GameOverPanel");
+            if (gameOverPanel != null)
+            {
+                gameOverPanel.SetActive(true);
+                Time.timeScale = 0f;
+                isGamePaused = true;
+                Debug.Log("Game Over activated via fallback method");
+            }
+            else
+            {
+                Debug.LogError("Không tìm thấy GameOverPanel để hiển thị Game Over!");
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

@@ -1,4 +1,4 @@
-﻿// File: Assets/Scripts/EnemySpawner.cs
+﻿// Tập tin: Assets/Scripts/EnemySpawner.cs
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class WaveConfig
 {
-    public string waveName = "New Wave";
+    public string waveName = "Đợt mới";
     public List<FormationData> formationsInWave;
 }
 

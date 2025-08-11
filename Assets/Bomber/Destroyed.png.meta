@@ -216,6 +216,45 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -1134,7 +1173,48 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Destroyed_0: -2030006277012047187
+      Destroyed_1: -5132642186515931051
+      Destroyed_10: 7350188880652365701
+      Destroyed_11: -6060027748469579647
+      Destroyed_12: 532232273609338541
+      Destroyed_13: 6839944579304673153
+      Destroyed_14: 957388183334513240
+      Destroyed_15: -7796532826557627580
+      Destroyed_16: -2570395379174388729
+      Destroyed_17: 1880995717371383432
+      Destroyed_18: 3917187731032548568
+      Destroyed_19: 3877338742066689881
+      Destroyed_2: 4010946958018046920
+      Destroyed_20: -6165523653091950174
+      Destroyed_21: 4845859093425228827
+      Destroyed_22: -534365495661324704
+      Destroyed_23: -4397151323220223725
+      Destroyed_24: 6773600224433509137
+      Destroyed_25: 5924051612719886553
+      Destroyed_26: 738421241453586439
+      Destroyed_27: -71436083029968730
+      Destroyed_28: -7312991516798633040
+      Destroyed_29: -1938270763823040345
+      Destroyed_3: 621554519350296898
+      Destroyed_30: -4322710256460655043
+      Destroyed_31: 6289527363294274330
+      Destroyed_32: 2656826846585727828
+      Destroyed_33: -4179431905259365103
+      Destroyed_34: -1070143900771055965
+      Destroyed_35: 4532344470723358947
+      Destroyed_36: -8087342144022297264
+      Destroyed_37: -9094974836271058645
+      Destroyed_38: 4094150222211771025
+      Destroyed_39: 4297251757505940805
+      Destroyed_4: 1415852004270601806
+      Destroyed_40: 345590493190060743
+      Destroyed_5: -1953867869414577751
+      Destroyed_6: -8317546020614562291
+      Destroyed_7: -4942805557840492161
+      Destroyed_8: -4622192374838743209
+      Destroyed_9: -3591588394763247863
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

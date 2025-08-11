@@ -1,21 +1,21 @@
-﻿// File: Assets/Scripts/PauseMenu.cs
+﻿// Tập tin: Assets/Scripts/PauseMenu.cs
 using UnityEngine;
-using UnityEngine.SceneManagement; // Cần thiết để tải scene
+using UnityEngine.SceneManagement; // Cần thiết để tải cảnh
 
 public class PauseMenu : MonoBehaviour
 {
-    [Header("UI Tạm Dừng")]
+    [Header("Giao diện tạm dừng")]
     [Tooltip("Kéo thả Panel chứa Menu Tạm Dừng vào đây")]
-    [SerializeField] private GameObject pauseMenuUI; // Panel chứa toàn bộ UI menu tạm dừng
+    [SerializeField] private GameObject pauseMenuUI; // Panel chứa toàn bộ giao diện menu tạm dừng
 
-    // Biến để theo dõi trạng thái tạm dừng của game
+    // Biến để theo dõi trạng thái tạm dừng của trò chơi
     // Đã được định nghĩa trong PlayerController, nhưng chúng ta cũng có thể truy cập nó từ đây
     // public static bool isGamePaused = false; // Nếu bạn muốn biến này chỉ ở đây
 
     // Lưu tên Scene menu của bạn
-    [Header("Cài đặt Scene")]
-    [Tooltip("Tên của Scene Menu chính")]
-    [SerializeField] private string menuSceneName = "Menu"; // Thay đổi tên này cho phù hợp với scene menu của bạn
+    [Header("Cài đặt cảnh")]
+    [Tooltip("Tên của cảnh Menu chính")]
+    [SerializeField] private string menuSceneName = "Menu"; // Thay đổi tên này cho phù hợp với cảnh menu của bạn
 
     void Start()
     {
