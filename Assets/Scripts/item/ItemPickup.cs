@@ -1,36 +1,79 @@
-﻿// File: Assets/Scripts/ItemPickup.cs
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-    [Tooltip("Loại item này là gì")]
-    [SerializeField] private ItemType itemType;
+    [Header("Item Settings")]
+    [Tooltip("Chọn loại item: Health, Speed, Score")]
+    [SerializeField] private string itemType = "Health";
 
-    [Tooltip("Giá trị của item (ví dụ: lượng máu hồi, số đạn thêm, lượng nhiệt giảm)")]
-    [SerializeField] private float itemValue = 1f; // Giá trị mặc định, sẽ được cấu hình cho từng prefab
+    [Tooltip("Giá trị của item (vd: lượng máu hồi, điểm số, etc.)")]
+    [SerializeField] private float itemValue = 1f;
 
-    [Tooltip("Tốc độ item di chuyển xuống (tùy chọn, tạo cảm giác rơi)")]
+    [Tooltip("Tốc độ rơi xuống")]
     [SerializeField] private float dropSpeed = 2f;
 
     void Update()
     {
-        // Item rơi xuống để người chơi nhặt
-        transform.Translate(Vector2.down * dropSpeed * Time.deltaTime);
+        // Item rơi xuống đều
+        transform.Translate(Vector3.down * dropSpeed * Time.deltaTime);
+
+        // Destroy nếu rơi ra ngoài màn hình
+        if (transform.position.y < -6f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Giả sử người chơi có Tag "Player"
+        // Kiểm tra nếu người chơi nhặt item
         if (other.CompareTag("Player"))
         {
-            // Gọi phương thức xử lý item trên script người chơi
-            PlayerController player = other.GetComponent<PlayerController>(); // Giả định script người chơi là PlayerController.cs
+            // ✅ SỬA LỖI: Xử lý item effects trực tiếp thay vì gọi ApplyItemEffect
+            PlayerController player = other.GetComponent<PlayerController>();
             if (player != null)
             {
-                player.ApplyItemEffect(itemType, itemValue);
-                Debug.Log("Player picked up " + itemType.ToString() + " with value " + itemValue);
+                ApplyItemEffectDirectly(player);
+
+                Debug.Log($"Player picked up {itemType} with value {itemValue}");
                 Destroy(gameObject); // Hủy item sau khi nhặt
             }
+        }
+    }
+
+    // ✅ THÊM method mới để xử lý effects trực tiếp
+    private void ApplyItemEffectDirectly(PlayerController player)
+    {
+        switch (itemType.ToLower())
+        {
+            case "health":
+            case "heal":
+                player.Heal((int)itemValue);
+                Debug.Log($"💚 Player healed: +{itemValue} health");
+                break;
+
+            case "speed":
+            case "speedboost":
+                // Tạm thời tăng speed (có thể implement sau)
+                Debug.Log($"⚡ Speed boost collected (not implemented yet)");
+                break;
+
+            case "score":
+            case "points":
+                PlayerController.AddScore((int)itemValue);
+                Debug.Log($"💰 Score added: +{itemValue} points");
+                break;
+
+            case "ammo":
+            case "firerateboost":
+                Debug.Log($"🔫 Fire rate boost collected (not implemented yet)");
+                break;
+
+            default:
+                Debug.LogWarning($"⚠️ Unknown item type: {itemType}");
+                // Default: give points
+                PlayerController.AddScore(10);
+                break;
         }
     }
 }

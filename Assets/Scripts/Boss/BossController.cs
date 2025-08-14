@@ -1,13 +1,12 @@
-﻿// File: Assets/Scripts/Boss/BossController.cs
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
     [Header("Cài đặt chung")]
+    [SerializeField] private int maxHealth = 15;
     [SerializeField] private int health = 15;
-    [SerializeField] private int scoreValue = 100;
+    [SerializeField] private int scoreValue = 2000;
 
     [Header("Cài đặt Di chuyển")]
     [SerializeField] private Vector2 roamingAreaCenter = new Vector2(0f, 0f);
@@ -21,20 +20,35 @@ public class BossController : MonoBehaviour
     private float nextFireTime;
 
     [Header("Cài đặt Bắn đạn tỏa tròn")]
-    [Tooltip("Prefab của đạn Boss")]
     [SerializeField] private GameObject circularBulletPrefab;
-    [Tooltip("Số lượng đạn bắn ra mỗi lần")]
     [SerializeField] private int circularBulletsPerShot = 12;
-    [Tooltip("Tốc độ bay của đạn")]
     [SerializeField] private float circularBulletSpeed = 5f;
-    [Tooltip("Thời gian chờ giữa các lần bắn đạn tỏa tròn")]
     [SerializeField] private float circularShotInterval = 6f;
     private float nextCircularShotTime;
 
+    [Header("UI và Effects")]
+    private BossHealthUI bossHealthUI;
+
     void Start()
     {
+        maxHealth = health; // Đảm bảo maxHealth được set
         nextFireTime = Time.time + fireRate;
         nextCircularShotTime = Time.time + circularShotInterval;
+
+        // Setup Boss Health UI
+        bossHealthUI = FindObjectOfType<BossHealthUI>();
+        if (bossHealthUI != null)
+        {
+            bossHealthUI.SetBoss(this);
+        }
+
+        // Phát âm thanh Boss xuất hiện
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlayAlertSound();
+        }
+
+        Debug.Log("🐉 BOSS SPAWNED! Health: " + health + "/" + maxHealth);
     }
 
     void Update()
@@ -58,18 +72,12 @@ public class BossController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Xử lý hành vi di chuyển ngang qua lại của Boss.
-    /// </summary>
     void HandleHorizontalMovement()
     {
         float newX = roamingAreaCenter.x + Mathf.Sin(Time.time * horizontalMoveSpeed) * roamingRadius;
         transform.position = new Vector2(newX, transform.position.y);
     }
 
-    /// <summary>
-    /// Logic bắn đạn thường của Boss.
-    /// </summary>
     void Shoot()
     {
         if (bossBulletPrefab == null)
@@ -92,16 +100,15 @@ public class BossController : MonoBehaviour
             {
                 bossBulletScript.SetDamage(bossBulletDamage);
             }
-            else
-            {
-                Debug.LogWarning("Prefab BossBullet không có script BossBullet.cs!");
-            }
+        }
+
+        // Phát âm thanh bắn
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlayPlayerShootSound();
         }
     }
 
-    /// <summary>
-    /// Bắn ra nhiều viên đạn tỏa tròn xung quanh boss.
-    /// </summary>
     private void ShootCircular()
     {
         if (circularBulletPrefab == null)
@@ -126,41 +133,73 @@ public class BossController : MonoBehaviour
             {
                 rb.linearVelocity = bulletDirection.normalized * circularBulletSpeed;
             }
-            else
+
+            // Set damage for circular bullets
+            BossBullet bossBulletScript = newBullet.GetComponent<BossBullet>();
+            if (bossBulletScript != null)
             {
-                Debug.LogWarning("Prefab đạn tỏa tròn của boss không có Rigidbody2D!");
+                bossBulletScript.SetDamage(bossBulletDamage);
             }
         }
+
+        Debug.Log("🌀 Boss fired circular shot!");
     }
 
-    /// <summary>
-    /// Xử lý khi Boss nhận sát thương
-    /// </summary>
     public void TakeDamage(int damageAmount)
     {
         health -= damageAmount;
         health = Mathf.Max(0, health);
+
+        // Hiệu ứng flash khi nhận damage
+        StartCoroutine(FlashEffect());
+
+        Debug.Log($"🐉 Boss took {damageAmount} damage! Health: {health}/{maxHealth}");
+
         if (health <= 0)
         {
             Die();
         }
     }
 
-    /// <summary>
-    /// Xử lý kết thúc game khi Boss bị tiêu diệt.
-    /// </summary>
+    private System.Collections.IEnumerator FlashEffect()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            Color originalColor = spriteRenderer.color;
+            spriteRenderer.color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+            spriteRenderer.color = originalColor;
+        }
+    }
+
     void Die()
     {
-        Debug.Log("BOSS ĐÃ BỊ TIÊU DIỆT! Bạn đã chiến thắng!");
+        Debug.Log("🐉💀 BOSS ĐÃ BỊ TIÊU DIỆT! Bạn đã chiến thắng!");
 
         PlayerController.AddScore(scoreValue);
+
+        // Ẩn Boss UI
+        if (bossHealthUI != null)
+        {
+            bossHealthUI.HideBossUI();
+        }
+
+        // Phát âm thanh Boss chết
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlayEnemyExplosionSound();
+        }
+
+        // Trigger Game Win
+        if (GameStateManager.instance != null)
+        {
+            GameStateManager.instance.TriggerGameWin();
+        }
 
         Destroy(gameObject);
     }
 
-    /// <summary>
-    /// Xử lý va chạm với đạn của người chơi
-    /// </summary>
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("PlayerBullet"))
@@ -170,6 +209,18 @@ public class BossController : MonoBehaviour
             {
                 TakeDamage(playerBullet.GetDamage());
             }
+            Destroy(other.gameObject);
         }
+    }
+
+    // Public getter methods cho UI
+    public int GetCurrentHealth()
+    {
+        return health;
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
     }
 }

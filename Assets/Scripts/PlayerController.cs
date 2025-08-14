@@ -1,156 +1,125 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-
-// Nếu bạn sử dụng TextMeshPro, hãy thêm: using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    public static PlayerController Instance { get; private set; }
-    public static bool isGamePaused = false;
-
-    [Header("Di chuyển Người chơi")]
-    [Tooltip("Tốc độ di chuyển của người chơi")]
+    [Header("Player Settings")]
     [SerializeField] private float moveSpeed = 5f;
-    [Tooltip("Giới hạn di chuyển theo trục X của người chơi (nửa chiều rộng màn hình)")]
-    [SerializeField] private float xBoundary = 4.5f;
-    [Tooltip("Giới hạn di chuyển theo trục Y của người chơi (nửa chiều cao màn hình)")]
-    [SerializeField] private float yBoundary = 4.5f;
-    [Tooltip("Hệ số giảm tốc độ di chuyển khi động cơ bị hỏng (ví dụ: 0.5f cho 50% tốc độ)")]
-    [SerializeField] private float damagedMoveSpeedMultiplier = 0.3f;
+    [SerializeField] private int maxHealth = 3;
+    [SerializeField] private int currentHealth;
 
-    [Header("Chiến đấu của Người chơi")]
-    [Tooltip("Prefab của đạn người chơi")]
-    [SerializeField] private GameObject playerBulletPrefab;
-    [Tooltip("Điểm xuất phát của đạn (offset từ vị trí người chơi)")]
-    [SerializeField] private Vector2 bulletSpawnOffset = new Vector2(0f, 0.5f);
-    [Tooltip("Tần suất bắn đạn (giây giữa các lần bắn)")]
-    [SerializeField] private float fireRate = 0.2f;
+    [Header("Level Settings")]
+    [SerializeField] private int startingHealthForLevel = 0; // 0 = use level-specific health
+
+    [Header("Shooting")]
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private float fireRate = 0.5f;
     private float nextFireTime;
 
-    [Header("Multi-Shot Settings")]
-    [Tooltip("Số lượng đạn bắn ra mỗi lần")]
-    [SerializeField] private int bulletsPerShot = 1;
-    [Tooltip("Khoảng cách giữa các viên đạn khi bắn nhiều")]
-    [SerializeField] private float multiShotSpread = 0.2f;
+    [Header("UI References")]
+    [SerializeField] private GameObject healthBarObject; // ✅ SỬA LỖI: Dùng GameObject thay vì HealthBar
 
-    [Header("Máu Người chơi")]
-    [Tooltip("Máu hiện tại của người chơi")]
-    [SerializeField] private int currentHealth = 3;
-    [Tooltip("Máu tối đa của người chơi")]
-    [SerializeField] private int maxHealth = 3;
-    [Tooltip("Tham chiếu đến script HealthUIController để hiển thị máu")]
-    [SerializeField] private HealthUIController healthUIController;
-
-    [Header("Hệ thống Quá nhiệt")]
-    [Tooltip("Lượng nhiệt tăng lên mỗi khi bắn")]
-    [SerializeField] private float heatPerShot = 10f;
-    [Tooltip("Nhiệt năng tối đa trước khi quá nhiệt")]
-    [SerializeField] private float maxHeat = 100f;
-    [Tooltip("Thời gian cần để nhiệt năng giảm về 0 sau khi quá nhiệt")]
-    [SerializeField] private float overheatCooldownTime = 6f;
-
-    [Tooltip("Tham chiếu đến UI Slider để hiển thị nhiệt năng")]
-    [SerializeField] private Slider heatSlider;
-
-    private float currentHeat;
-    private bool isOverheated = false;
-    private float overheatEndTime;
-
-    private Rigidbody2D rb;
-
-    [Header("Điều khiển Hoạt ảnh")]
-    [Tooltip("Animator của động cơ (kéo thả GameObject động cơ vào đây)")]
-    [SerializeField] private Animator engineAnimator;
-    [Tooltip("Animator của Body Player (sẽ đảm nhận animation nổ khi chết)")]
-    [SerializeField] private Animator playerBodyAnimator;
-
-    private bool engineAnimationStopped = false;
-    private bool playerIsDead = false;
-
-    [Header("Hệ thống Điểm")]
-    [Tooltip("Tham chiếu đến UI Text để hiển thị điểm số")]
-    [SerializeField] private Text scoreText;
+    // Static variables
     public static int currentScore = 0;
+    public static bool isGamePaused = false;
 
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        rb = GetComponent<Rigidbody2D>();
-        if (rb == null)
-        {
-            Debug.LogError("Không tìm thấy Rigidbody2D trên người chơi! Vui lòng thêm thành phần Rigidbody2D.");
-        }
-    }
+    // Components
+    private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
-        nextFireTime = Time.time;
-        currentHeat = 0f;
-        currentScore = 0;
-        UpdateScoreUI();
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
-        Time.timeScale = 1f;
-        isGamePaused = false;
+        // ✅ Thiết lập máu theo level
+        SetHealthForCurrentLevel();
 
-        if (healthUIController != null)
+        // ✅ SỬA LỖI: Tìm HealthBar component an toàn hơn
+        if (healthBarObject == null)
         {
-            healthUIController.UpdateHealth(currentHealth);
-        }
-        else
-        {
-            Debug.LogWarning("Health UI Controller chưa được gán trong PlayerController!");
-        }
-
-        if (heatSlider != null)
-        {
-            heatSlider.maxValue = maxHeat;
-            heatSlider.value = currentHeat;
-        }
-        else
-        {
-            Debug.LogWarning("Heat Slider chưa được gán trong PlayerController! Thanh nhiệt sẽ không hiển thị.");
+            // Tìm GameObject có script quản lý health UI
+            GameObject healthUI = GameObject.FindWithTag("HealthUI");
+            if (healthUI != null)
+            {
+                healthBarObject = healthUI;
+            }
         }
 
-        if (engineAnimator == null)
-        {
-            Debug.LogWarning("Engine Animator chưa được gán trong PlayerController! Hoạt ảnh động cơ sẽ không được điều khiển.");
-        }
-        else
-        {
-            engineAnimator.SetBool("IsEngineRunning", true);
-        }
+        // Update UI
+        UpdateHealthUI();
 
-        if (playerBodyAnimator == null)
+        Debug.Log($"🎮 Player started with {currentHealth}/{maxHealth} health");
+    }
+
+    // ✅ Method thiết lập máu theo level
+    private void SetHealthForCurrentLevel()
+    {
+        string currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+
+        switch (currentSceneName.ToLower())
         {
-            Debug.LogWarning("Player Body Animator chưa được gán trong PlayerController! Hoạt ảnh nổ sẽ không phát.");
+            case "scene1":
+            case "level1":
+            case "menuscene":
+                // Level 1: máu full
+                currentHealth = maxHealth;
+                Debug.Log("🎮 Level 1: Full health (" + maxHealth + ")");
+                break;
+
+            case "scene2":
+            case "level2":
+                // Level 2: máu giảm 1
+                currentHealth = maxHealth - 1;
+                currentHealth = Mathf.Max(1, currentHealth); // Đảm bảo ít nhất 1 máu
+                Debug.Log("🎮 Level 2: Reduced health (" + currentHealth + "/" + maxHealth + ")");
+                break;
+
+            case "scene3":
+            case "level3":
+                // Level 3: máu giảm 2
+                currentHealth = maxHealth - 2;
+                currentHealth = Mathf.Max(1, currentHealth);
+                Debug.Log("🎮 Level 3: More reduced health (" + currentHealth + "/" + maxHealth + ")");
+                break;
+
+            case "bosslevel":
+            case "finallevel":
+                // Boss level: máu giảm 1 nhưng có thêm bonus nếu từ level trước
+                currentHealth = maxHealth - 1;
+                if (currentScore >= 2000) // Bonus nếu điểm cao
+                {
+                    currentHealth = maxHealth;
+                    Debug.Log("🎮 Boss Level: Bonus full health for high score!");
+                }
+                else
+                {
+                    Debug.Log("🎮 Boss Level: Reduced health (" + currentHealth + "/" + maxHealth + ")");
+                }
+                break;
+
+            default:
+                // Default: sử dụng startingHealthForLevel nếu được set
+                if (startingHealthForLevel > 0)
+                {
+                    currentHealth = Mathf.Min(startingHealthForLevel, maxHealth);
+                    Debug.Log("🎮 Custom level: Health set to " + currentHealth);
+                }
+                else
+                {
+                    currentHealth = maxHealth;
+                    Debug.Log("🎮 Unknown level: Using full health");
+                }
+                break;
         }
     }
 
     void Update()
     {
-        if (isGamePaused)
-        {
-            if (rb != null)
-            {
-                rb.linearVelocity = Vector2.zero;
-            }
-            return;
-        }
+        if (isGamePaused) return;
 
-        if (!playerIsDead)
-        {
-            HandleMovement();
-            HandleShooting();
-            HandleHeatSystem();
-        }
+        HandleMovement();
+        HandleShooting();
     }
 
     void HandleMovement()
@@ -158,167 +127,60 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        float currentMoveSpeed = moveSpeed;
+        Vector2 movement = new Vector2(horizontalInput, verticalInput) * moveSpeed;
+        rb.linearVelocity = movement;
 
-        if (engineAnimationStopped)
-        {
-            currentMoveSpeed *= damagedMoveSpeedMultiplier;
-        }
-
-        Vector2 moveDirection = new Vector2(horizontalInput, verticalInput).normalized;
-        rb.linearVelocity = moveDirection * currentMoveSpeed;
-
-        Vector3 clampedPosition = transform.position;
-        clampedPosition.x = Mathf.Clamp(clampedPosition.x, -xBoundary, xBoundary);
-        clampedPosition.y = Mathf.Clamp(clampedPosition.y, -yBoundary, yBoundary);
-        transform.position = clampedPosition;
+        // Keep player within screen bounds
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, -8f, 8f);
+        pos.y = Mathf.Clamp(pos.y, -4f, 4f);
+        transform.position = pos;
     }
 
     void HandleShooting()
     {
-        if (Input.GetButton("Fire1") && Time.time >= nextFireTime && !isOverheated)
+        if (Input.GetButton("Fire1") && Time.time >= nextFireTime)
         {
-            if (currentHeat + heatPerShot > maxHeat)
-            {
-                SetOverheated(true);
-                return;
-            }
-
             Shoot();
-            currentHeat += heatPerShot;
-            UpdateHeatUI();
             nextFireTime = Time.time + fireRate;
-        }
-        else if (!isOverheated && currentHeat > 0)
-        {
-            currentHeat = Mathf.Max(0, currentHeat - Time.deltaTime * (maxHeat / overheatCooldownTime / 2));
-            UpdateHeatUI();
         }
     }
 
     void Shoot()
     {
-        if (playerBulletPrefab == null)
+        if (bulletPrefab != null && firePoint != null)
         {
-            Debug.LogWarning("Player Bullet Prefab chưa được gán trong PlayerController!");
-            return;
-        }
+            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
-        // Phát âm thanh bắn đạn
-        if (AudioManager.instance != null)
-        {
-            AudioManager.instance.PlayPlayerShootSound();
-        }
-
-        for (int i = 0; i < bulletsPerShot; i++)
-        {
-            float offset = 0;
-            if (bulletsPerShot > 1)
+            // Play shoot sound
+            if (AudioManager.instance != null)
             {
-                offset = (i - (bulletsPerShot - 1) / 2f) * multiShotSpread;
-            }
-
-            Vector2 spawnPosition = (Vector2)transform.position + bulletSpawnOffset + new Vector2(offset, 0);
-            Instantiate(playerBulletPrefab, spawnPosition, Quaternion.identity);
-        }
-    }
-
-    void HandleHeatSystem()
-    {
-        if (isOverheated)
-        {
-            if (Time.time >= overheatEndTime)
-            {
-                SetOverheated(false);
-                currentHeat = 0f;
-                UpdateHeatUI();
-                Debug.Log("Quá nhiệt đã kết thúc. Sẵn sàng bắn!");
+                AudioManager.instance.PlayPlayerShootSound();
             }
         }
     }
 
-    void SetOverheated(bool state)
+    public void TakeDamage(int damage)
     {
-        isOverheated = state;
-        if (isOverheated)
-        {
-            overheatEndTime = Time.time + overheatCooldownTime;
-            Debug.Log("QUÁ NHIỆT! Không thể bắn trong " + overheatCooldownTime + " giây.");
-            currentHeat = maxHeat;
-            UpdateHeatUI();
-        }
-    }
-
-    void UpdateHeatUI()
-    {
-        if (heatSlider != null)
-        {
-            heatSlider.value = currentHeat;
-        }
-    }
-
-    public static void AddScore(int amount)
-    {
-        Debug.Log("Thêm điểm: " + amount);
-        currentScore += amount;
-        PlayerController playerInstance = FindAnyObjectByType<PlayerController>();
-        if (playerInstance != null)
-        {
-            playerInstance.UpdateScoreUI();
-        }
-    }
-
-    void UpdateScoreUI()
-    {
-        if (scoreText != null)
-        {
-            scoreText.text = "Score: " + currentScore.ToString();
-        }
-        else
-        {
-            Debug.LogWarning("Score Text UI chưa được gán trong PlayerController! Điểm số sẽ không hiển thị.");
-        }
-    }
-
-    public void TakeDamage(int damageAmount)
-    {
-        if (playerIsDead) return;
-
-        currentHealth -= damageAmount;
+        currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth);
 
-        Debug.Log("Người chơi nhận " + damageAmount + " sát thương. Máu hiện tại: " + currentHealth);
+        // Flash effect
+        if (spriteRenderer != null)
+        {
+            StartCoroutine(FlashEffect());
+        }
 
-        // Phát âm thanh bị thương
+        // Update UI
+        UpdateHealthUI();
+
+        // Play hurt sound
         if (AudioManager.instance != null)
         {
             AudioManager.instance.PlayPlayerExplosionSound();
         }
 
-        // Cập nhật UI trái tim
-        if (healthUIController != null)
-        {
-            healthUIController.UpdateHealth(currentHealth);
-        }
-
-        if (currentHealth == 1 && !engineAnimationStopped)
-        {
-            Debug.Log("Máu người chơi nguy cấp! Động cơ ngừng hoạt động và giảm tốc độ.");
-            if (engineAnimator != null)
-            {
-                engineAnimator.SetBool("IsEngineRunning", false);
-                engineAnimationStopped = true;
-            }
-        }
-        else if (currentHealth > 1 && engineAnimationStopped)
-        {
-            Debug.Log("Động cơ đã sửa chữa một phần. Tốc độ trở lại bình thường.");
-            if (engineAnimator != null)
-            {
-                engineAnimator.SetBool("IsEngineRunning", true);
-                engineAnimationStopped = false;
-            }
-        }
+        Debug.Log($"🩸 Player took {damage} damage! Health: {currentHealth}/{maxHealth}");
 
         if (currentHealth <= 0)
         {
@@ -326,127 +188,87 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Die()
+    private System.Collections.IEnumerator FlashEffect()
     {
-        if (playerIsDead) return;
-        playerIsDead = true;
+        if (spriteRenderer == null) yield break;
 
-        Debug.Log("Người chơi đã chết! Phát hoạt ảnh nổ.");
-
-        if (rb != null) rb.bodyType = RigidbodyType2D.Static;
-        Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
-        foreach (Collider2D col in colliders)
-        {
-            col.enabled = false;
-        }
-
-        if (playerBodyAnimator != null)
-        {
-            playerBodyAnimator.SetTrigger("Explode");
-        }
-
-        // Gọi Game Over sau khi animation nổ
-        float explosionDuration = 1.0f;
-        StartCoroutine(TriggerGameOverAfterExplosion(explosionDuration));
-        
-        Destroy(gameObject, explosionDuration);
+        Color originalColor = spriteRenderer.color;
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.color = originalColor;
     }
 
-    private System.Collections.IEnumerator TriggerGameOverAfterExplosion(float delay)
+    void Die()
     {
-        yield return new WaitForSeconds(delay);
-        
-        // Gọi GameStateManager để hiển thị Game Over
+        Debug.Log("💀 Player died!");
+
+        // Trigger Game Over
         if (GameStateManager.instance != null)
         {
-            GameStateManager.instance.OnPlayerDeath();
+            GameStateManager.instance.TriggerGameOver();
         }
-        else
+
+        // Play death sound
+        if (AudioManager.instance != null)
         {
-            // Fallback nếu không có GameStateManager - tìm GameOverPanel trực tiếp
-            GameObject gameOverPanel = GameObject.Find("GameOverPanel");
-            if (gameOverPanel != null)
+            AudioManager.instance.PlayPlayerExplosionSound();
+        }
+
+        // Destroy player (or deactivate)
+        gameObject.SetActive(false);
+    }
+
+    // ✅ SỬA LỖI: Method update health UI an toàn
+    private void UpdateHealthUI()
+    {
+        if (healthBarObject != null)
+        {
+            // Tìm script quản lý health UI trong healthBarObject
+            MonoBehaviour[] scripts = healthBarObject.GetComponents<MonoBehaviour>();
+
+            foreach (MonoBehaviour script in scripts)
             {
-                gameOverPanel.SetActive(true);
-                Time.timeScale = 0f;
-                isGamePaused = true;
-                Debug.Log("Game Over activated via fallback method");
-            }
-            else
-            {
-                Debug.LogError("Không tìm thấy GameOverPanel để hiển thị Game Over!");
-            }
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (playerIsDead) return;
-
-        // Xóa logic này để tránh nhận 2 sát thương, việc này sẽ do EnemyBullet.cs xử lý
-        // if (other.CompareTag("EnemyBullet"))
-        // {
-        //     TakeDamage(1);
-        //     Destroy(other.gameObject);
-        // }
-
-        if (other.CompareTag("Enemy"))
-        {
-            TakeDamage(1);
-        }
-        else if (other.CompareTag("Comet"))
-        {
-            TakeDamage(3);
-            Destroy(other.gameObject);
-        }
-        else if (other.CompareTag("Item"))
-        {
-            Debug.Log("Người chơi chạm vào Item. ItemPickup sẽ xử lý.");
-        }
-    }
-
-    public void ApplyItemEffect(ItemType type, float value)
-    {
-        switch (type)
-        {
-            case ItemType.Heal:
-                currentHealth = Mathf.Min(maxHealth, currentHealth + (int)value);
-                UpdateHealthUI();
-                Debug.Log("Hồi máu: " + (int)value + ". Máu hiện tại: " + currentHealth);
-                if (currentHealth > 1 && engineAnimationStopped)
+                // Tìm method UpdateHealth
+                var updateMethod = script.GetType().GetMethod("UpdateHealth");
+                if (updateMethod != null)
                 {
-                    engineAnimator.SetBool("IsEngineRunning", true);
-                    engineAnimationStopped = false;
+                    try
+                    {
+                        updateMethod.Invoke(script, new object[] { currentHealth, maxHealth });
+                        break;
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogWarning($"Could not update health UI: {e.Message}");
+                    }
                 }
-                break;
-            case ItemType.ExtraBullet:
-                bulletsPerShot = Mathf.Min(bulletsPerShot + 1, 5);
-                Debug.Log("Thêm 1 viên đạn. Tổng số đạn: " + bulletsPerShot);
-                break;
-
-            case ItemType.ReduceHeat:
-                currentHeat = 0;
-                UpdateHeatUI();
-                Debug.Log("Nhiệt đã được đặt về 0.");
-                if (isOverheated)
-                {
-                    SetOverheated(false);
-                    Debug.Log("Thoát trạng thái quá nhiệt nhờ item!");
-                }
-                break;
-
-            default:
-                Debug.LogWarning("Loại item không được xử lý: " + type);
-                break;
+            }
         }
     }
 
-    // Phương thức cập nhật UI trái tim đã được đặt ở đây để thuận tiện
-    void UpdateHealthUI()
+    // Static method to add score
+    public static void AddScore(int points)
     {
-        if (healthUIController != null)
-        {
-            healthUIController.UpdateHealth(currentHealth);
-        }
+        currentScore += points;
+        Debug.Log($"💰 Score added: +{points} | Total: {currentScore}");
     }
+
+    // Getter methods
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public void Heal(int healAmount)
+    {
+        currentHealth = Mathf.Min(currentHealth + healAmount, maxHealth);
+        UpdateHealthUI();
+        Debug.Log($"💚 Player healed +{healAmount}! Health: {currentHealth}/{maxHealth}");
+    }
+
 }

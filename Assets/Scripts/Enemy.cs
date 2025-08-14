@@ -1,5 +1,4 @@
-﻿// File: Assets/Scripts/Enemy.cs
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 public class Enemy : MonoBehaviour
@@ -24,6 +23,13 @@ public class Enemy : MonoBehaviour
     [Tooltip("Sát thương mà viên đạn của kẻ địch gây ra")]
     [SerializeField] protected int bulletDamage = 1;
 
+    // ✅ THÊM: Score System
+    [Header("Hệ thống điểm số")]
+    [Tooltip("Điểm số được nhận khi tiêu diệt kẻ địch này")]
+    [SerializeField] protected int scoreValue = 10;
+    [Tooltip("Điểm bonus nếu tiêu diệt bằng một phát")]
+    [SerializeField] protected int oneHitKillBonus = 5;
+
     [Header("Cơ chế rơi Item")]
     [Tooltip("Tỉ lệ phần trăm để kẻ địch rơi item khi bị tiêu diệt")]
     [SerializeField] private float itemDropChance = 20f; // 20% tỉ lệ rơi item
@@ -37,6 +43,9 @@ public class Enemy : MonoBehaviour
     protected Rigidbody2D rb;
     protected Vector2 targetPosition;
     protected bool hasTarget = false;
+
+    // ✅ THÊM: Score tracking
+    private bool wasOneHitKill = true; // Track if killed in one hit
 
     void Awake()
     {
@@ -114,6 +123,12 @@ public class Enemy : MonoBehaviour
 
         Debug.Log(gameObject.name + " nhận " + damageAmount + " sát thương. Máu hiện tại: " + health);
 
+        // ✅ THÊM: Track if not one-hit kill
+        if (health < initialHealth && health > 0)
+        {
+            wasOneHitKill = false;
+        }
+
         if (health <= 0)
         {
             Die();
@@ -123,6 +138,9 @@ public class Enemy : MonoBehaviour
     protected virtual void Die()
     {
         Debug.Log(gameObject.name + " đã chết!");
+
+        // ✅ THÊM: Add score khi enemy chết
+        AddScoreForKill();
 
         // Phát âm thanh enemy nổ
         if (AudioManager.instance != null)
@@ -140,6 +158,55 @@ public class Enemy : MonoBehaviour
         DropItem();
 
         Destroy(gameObject);
+    }
+
+    // ✅ THÊM: Method để add score
+    protected virtual void AddScoreForKill()
+    {
+        int totalScore = scoreValue;
+
+        // Add one-hit kill bonus
+        if (wasOneHitKill && oneHitKillBonus > 0)
+        {
+            totalScore += oneHitKillBonus;
+            Debug.Log("💥 One-hit kill bonus: +" + oneHitKillBonus + " điểm!");
+        }
+
+        // Add score through GameManager for proper UI update
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.AddScore(totalScore);
+            Debug.Log("💰 " + gameObject.name + " killed! +" + totalScore + " điểm. Tổng: " + PlayerController.currentScore);
+        }
+        else
+        {
+            // Fallback: Add directly to PlayerController
+            PlayerController.AddScore(totalScore);
+            Debug.Log("💰 " + gameObject.name + " killed! +" + totalScore + " điểm. Tổng: " + PlayerController.currentScore);
+        }
+    }
+
+    // ✅ THÊM: Public methods để config score
+    public void SetScoreValue(int newScoreValue)
+    {
+        scoreValue = newScoreValue;
+        Debug.Log("📊 " + gameObject.name + " score value set to: " + scoreValue);
+    }
+
+    public void SetOneHitKillBonus(int bonusValue)
+    {
+        oneHitKillBonus = bonusValue;
+        Debug.Log("🎯 " + gameObject.name + " one-hit bonus set to: " + oneHitKillBonus);
+    }
+
+    public int GetScoreValue()
+    {
+        return scoreValue;
+    }
+
+    public int GetTotalPossibleScore()
+    {
+        return scoreValue + oneHitKillBonus;
     }
 
     /// <summary>
@@ -196,7 +263,7 @@ public class Enemy : MonoBehaviour
             {
                 player.TakeDamage(1);
             }
-            Die();
+            Die(); // ✅ Vẫn cho điểm khi enemy chạm player (tự sát)
         }
     }
 }

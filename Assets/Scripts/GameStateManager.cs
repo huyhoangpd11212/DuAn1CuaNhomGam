@@ -1,67 +1,67 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class GameStateManager : MonoBehaviour
 {
-    [Header("UI Panels")]
-    [SerializeField] private GameObject gameOverPanel;
+    [Header("Game Win UI")]
     [SerializeField] private GameObject gameWinPanel;
-    
-    [Header("Game Over Elements")]
-    [SerializeField] private Text gameOverFinalScoreText;
-    [SerializeField] private Text gameOverHighScoreText;
+    [SerializeField] private Button mainMenuButton;
+    [SerializeField] private Button quitButton;
+    [SerializeField] private Button nextLevelButton;
+    [SerializeField] private Button winMainMenuButton;
+    [SerializeField] private Button winQuitButton;
+
+    [Header("Game Over UI")]
+    [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private Button gameOverRestartButton;
     [SerializeField] private Button gameOverMainMenuButton;
     [SerializeField] private Button gameOverQuitButton;
-    
-    [Header("Game Win Elements")]
-    [SerializeField] private Text gameWinFinalScoreText;
-    [SerializeField] private Text gameWinHighScoreText;
-    [SerializeField] private Text levelCompleteText;
-    [SerializeField] private Button nextLevelButton;
-    [SerializeField] private Button gameWinRestartButton;
-    [SerializeField] private Button gameWinMainMenuButton;
-    [SerializeField] private Button gameWinQuitButton;
-    
-    [Header("Animation Settings")]
-    [SerializeField] private float fadeInDuration = 1f;
-    [SerializeField] private CanvasGroup gameOverCanvasGroup;
-    [SerializeField] private CanvasGroup gameWinCanvasGroup;
-    
-    [Header("Game Settings")]
-    [SerializeField] private int winScore = 1000;
-    [SerializeField] private int bonusScore = 500;
-    [SerializeField] private string nextSceneName = "Level2";
-    
+    [SerializeField] private Text gameOverScoreText;
+    [SerializeField] private Text gameOverHighScoreText;
+    [SerializeField] private Text gameOverTitleText;
+
+    [Header("Pause Menu UI")]
+    [SerializeField] private GameObject pauseMenuPanel;
+    [SerializeField] private Button resumeButton;
+    [SerializeField] private Button pauseMainMenuButton;
+    [SerializeField] private Button pauseQuitButton;
+
+    [Header("HUD Elements")]
+    [SerializeField] private Text scoreText;
+    [SerializeField] private Text highScoreText;
+    [SerializeField] private Text livesText;
+    [SerializeField] private Text levelText;
+    [SerializeField] private Text timeText;
+
     [Header("Win Conditions")]
-    [Tooltip("Thắng khi đạt đủ điểm số")]
-    [SerializeField] private bool winByScore = true;
-    [Tooltip("Thắng khi tiêu diệt hết enemy")]
-    [SerializeField] private bool winByEnemyCount = true;
-    [Tooltip("Thắng khi sống đủ thời gian")]
+    [SerializeField] private bool winByScore = false;
+    [SerializeField] private int winScore = 5000;
     [SerializeField] private bool winByTime = false;
-    [SerializeField] private float gameTimeLimit = 180f; // 3 phút
-    
+    [SerializeField] private int gameTimeLimit = 180;
+    [SerializeField] private bool winByEnemyCount = false;
+    [SerializeField] private int bonusScore = 100;
+
+    [Header("Level Progression")]
+    [SerializeField] private int level1RequiredScore = 1000;
+    [SerializeField] private int level2RequiredScore = 2000;
+    [SerializeField] private int bossLevelRequiredScore = 3000;
+
+    [Header("Debug Settings")]
+    [SerializeField] private bool enableDebugLogs = true;
+    [SerializeField] private bool showDebugInfo = true;
+
+    // Private variables
+    private bool gameWon = false;
+    private bool gameOver = false;
+    private bool gamePaused = false;
     private float gameStartTime;
-    
-    [Header("Sound Effects")]
-    [SerializeField] private AudioClip gameOverSound;
-    [SerializeField] private AudioClip gameWinSound;
-    
-    // Static instance
+    private string currentLevelName = "Level 1";
+    private int previousScore = 0;
+
     public static GameStateManager instance;
-    
-    // Game state
-    private bool isGameOver = false;
-    private bool isGameWin = false;
-    
-    // Prevent immediate win condition check after restart
-    private float gameStartDelay = 3f; // 3 giây delay
-    private bool canCheckWinCondition = false;
-    
-    private void Awake()
+
+    void Awake()
     {
         // Singleton pattern
         if (instance == null)
@@ -71,466 +71,878 @@ public class GameStateManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-            return;
         }
     }
-    
-    private void Start()
+
+    void Start()
     {
-        InitializePanels();
-        SetupButtons();
-        gameStartTime = Time.time; // Record thời gian bắt đầu game
-        
-        // Bắt đầu coroutine để enable win condition check sau delay
-        StartCoroutine(EnableWinConditionCheckAfterDelay());
-        
-        Debug.Log($"🎮 GameStateManager initialized!");
-        Debug.Log($"📊 Win Conditions - Score: {(winByScore ? winScore.ToString() : "OFF")} | Enemy: {(winByEnemyCount ? "ON" : "OFF")} | Time: {(winByTime ? gameTimeLimit + "s" : "OFF")}");
-        Debug.Log($"⏰ Win condition check will be enabled after {gameStartDelay} seconds");
+        gameStartTime = Time.time;
+        currentLevelName = GetCurrentLevelDisplayName();
+
+        // Check GameManager connection first
+        CheckGameManagerConnection();
+
+        // Auto-find UI elements
+        AutoFindUIElements();
+
+        // Setup button listeners
+        SetupButtonListeners();
+
+        // Initial UI update
+        ForceUpdateHUD();
+
+        if (enableDebugLogs)
+            Debug.Log("✅ GameStateManager initialized for: " + currentLevelName);
     }
-    
-    private System.Collections.IEnumerator EnableWinConditionCheckAfterDelay()
+
+    void Update()
     {
-        canCheckWinCondition = false;
-        yield return new WaitForSeconds(gameStartDelay);
-        canCheckWinCondition = true;
-        Debug.Log("✅ Win condition check is now ENABLED!");
-    }
-    
-    private void Update()
-    {
-        CheckWinCondition();
-        CheckGameOverCondition();
-        HandleTestKeys();
-    }
-    
-    private void InitializePanels()
-    {
-        // Ẩn tất cả panels khi bắt đầu
-        if (gameOverPanel != null)
+        if (gameWon || gamePaused) return;
+
+        try
         {
-            gameOverPanel.SetActive(false);
+            // Update HUD
+            UpdateHUD();
+
+            // Check win conditions only if game not over
+            if (!gameOver) CheckWinConditions();
+
+            // Handle pause input
+            if (Input.GetKeyDown(KeyCode.Escape) && !gameOver)
+            {
+                if (gamePaused)
+                    ResumeGame();
+                else
+                    PauseGame();
+            }
+
+            // Debug controls
+            if (enableDebugLogs && Application.isEditor)
+            {
+                if (Input.GetKeyDown(KeyCode.K))
+                    TriggerGameOver();
+                if (Input.GetKeyDown(KeyCode.L))
+                    TriggerGameWin();
+                if (Input.GetKeyDown(KeyCode.F4))
+                    TestAllButtons();
+
+                // Manual button tests when game over
+                if (gameOver)
+                {
+                    if (Input.GetKeyDown(KeyCode.R))
+                        ManualRestartGame();
+                    if (Input.GetKeyDown(KeyCode.M))
+                        ManualReturnToMainMenu();
+                    if (Input.GetKeyDown(KeyCode.Q))
+                        ManualQuitApplication();
+                }
+            }
         }
-        
-        if (gameWinPanel != null)
+        catch (System.Exception e)
         {
-            gameWinPanel.SetActive(false);
+            if (enableDebugLogs)
+                Debug.LogError("❌ GameStateManager Update error: " + e.Message);
         }
     }
-    
-    private void SetupButtons()
+
+    void OnGUI()
     {
-        // Game Over buttons
-        if (gameOverRestartButton != null)
-            gameOverRestartButton.onClick.AddListener(() => RestartGame("Game Over"));
-            
-        if (gameOverMainMenuButton != null)
-            gameOverMainMenuButton.onClick.AddListener(() => GoToMainMenu("Game Over"));
-            
-        if (gameOverQuitButton != null)
-            gameOverQuitButton.onClick.AddListener(QuitGame);
-        
-        // Game Win buttons
-        if (nextLevelButton != null)
-            nextLevelButton.onClick.AddListener(LoadNextLevel);
-            
-        if (gameWinRestartButton != null)
-            gameWinRestartButton.onClick.AddListener(() => RestartGame("Game Win"));
-            
-        if (gameWinMainMenuButton != null)
-            gameWinMainMenuButton.onClick.AddListener(() => GoToMainMenu("Game Win"));
-            
-        if (gameWinQuitButton != null)
-            gameWinQuitButton.onClick.AddListener(QuitGame);
+        if (showDebugInfo && Application.isEditor)
+        {
+            GUI.Box(new Rect(Screen.width - 320, 10, 310, 200), "");
+            GUI.Label(new Rect(Screen.width - 315, 15, 300, 20), "GAME STATE DEBUG");
+            GUI.Label(new Rect(Screen.width - 315, 35, 300, 20), "Score: " + PlayerController.currentScore);
+            GUI.Label(new Rect(Screen.width - 315, 55, 300, 20), "Game Won: " + gameWon);
+            GUI.Label(new Rect(Screen.width - 315, 75, 300, 20), "Game Over: " + gameOver);
+            GUI.Label(new Rect(Screen.width - 315, 95, 300, 20),
+                      "GameManager: " + (GameManager.instance != null ? "✅" : "❌"));
+            GUI.Label(new Rect(Screen.width - 315, 115, 300, 20),
+                      "Restart Btn: " + (gameOverRestartButton != null ? "✅" : "❌"));
+            GUI.Label(new Rect(Screen.width - 315, 135, 300, 20),
+                      "Menu Btn: " + (gameOverMainMenuButton != null ? "✅" : "❌"));
+            GUI.Label(new Rect(Screen.width - 315, 155, 300, 20),
+                      "Quit Btn: " + (gameOverQuitButton != null ? "✅" : "❌"));
+            GUI.Label(new Rect(Screen.width - 315, 175, 300, 20),
+                      "F4: Test, K: GameOver, L: Win");
+            GUI.Label(new Rect(Screen.width - 315, 195, 300, 20),
+                      "R: Restart, M: Menu, Q: Quit");
+        }
     }
-    
-    private void CheckWinCondition()
+
+    // ===== INITIALIZATION METHODS =====
+    private void CheckGameManagerConnection()
     {
-        // Không check win condition nếu:
-        // - Game đã over hoặc win
-        // - Game đang pause
-        // - Chưa đến thời gian được check (sau restart)
-        if (isGameOver || isGameWin || PlayerController.isGamePaused || !canCheckWinCondition) 
-            return;
-        
+        if (GameManager.instance == null)
+        {
+            if (enableDebugLogs)
+                Debug.LogWarning("⚠️ GameManager.instance is null! Looking for GameManager...");
+
+            GameManager gameManagerInScene = FindObjectOfType<GameManager>();
+            if (gameManagerInScene != null)
+            {
+                if (enableDebugLogs)
+                    Debug.Log("✅ Found GameManager in scene");
+            }
+            else
+            {
+                if (enableDebugLogs)
+                    Debug.LogWarning("⚠️ No GameManager found! Some features may not work.");
+            }
+        }
+        else
+        {
+            if (enableDebugLogs)
+                Debug.Log("✅ GameManager.instance connected");
+        }
+    }
+
+    private void AutoFindUIElements()
+    {
+        if (scoreText == null)
+        {
+            GameObject scoreObj = GameObject.Find("Score");
+            if (scoreObj != null)
+            {
+                scoreText = scoreObj.GetComponent<Text>();
+                if (scoreText != null && enableDebugLogs)
+                    Debug.Log("✅ Auto-found Score Text: " + scoreObj.name);
+            }
+
+            if (scoreText == null)
+            {
+                Text[] allTexts = FindObjectsOfType<Text>();
+                foreach (Text text in allTexts)
+                {
+                    if (text.name.ToLower().Contains("score") && !text.name.ToLower().Contains("high"))
+                    {
+                        scoreText = text;
+                        if (enableDebugLogs)
+                            Debug.Log("✅ Auto-found Score Text by search: " + text.name);
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (highScoreText == null)
+        {
+            Text[] allTexts = FindObjectsOfType<Text>();
+            foreach (Text text in allTexts)
+            {
+                if (text.name.ToLower().Contains("high") && text.name.ToLower().Contains("score"))
+                {
+                    highScoreText = text;
+                    if (enableDebugLogs)
+                        Debug.Log("✅ Auto-found High Score Text: " + text.name);
+                    break;
+                }
+            }
+        }
+    }
+
+    // ===== HUD UPDATE METHODS =====
+    private void UpdateHUD()
+    {
+        UpdateScoreDisplay();
+        UpdateOtherHUDElements();
+    }
+
+    public void ForceUpdateHUD()
+    {
+        UpdateScoreDisplay();
+        UpdateOtherHUDElements();
+        if (enableDebugLogs && PlayerController.currentScore != previousScore)
+            Debug.Log("💰 HUD Force Updated - Score: " + PlayerController.currentScore);
+    }
+
+    private void UpdateScoreDisplay()
+    {
+        int currentScore = PlayerController.currentScore;
+
+        if (scoreText != null)
+        {
+            scoreText.text = "SCORE: " + currentScore.ToString();
+
+            if (currentScore != previousScore && enableDebugLogs)
+            {
+                Debug.Log("💰 Score UI updated: " + previousScore + " → " + currentScore);
+                previousScore = currentScore;
+            }
+        }
+        else
+        {
+            TryFindScoreText();
+        }
+
+        if (highScoreText != null)
+        {
+            int highScore = PlayerPrefs.GetInt("HighScore", 0);
+            highScoreText.text = "HIGH: " + highScore.ToString();
+        }
+    }
+
+    private void TryFindScoreText()
+    {
+        GameObject scoreObj = GameObject.Find("Score");
+        if (scoreObj != null)
+        {
+            Text foundText = scoreObj.GetComponent<Text>();
+            if (foundText != null)
+            {
+                scoreText = foundText;
+                scoreText.text = "SCORE: " + PlayerController.currentScore.ToString();
+                if (enableDebugLogs)
+                    Debug.Log("✅ Found Score Text: " + scoreObj.name);
+                return;
+            }
+        }
+
+        Canvas[] allCanvas = FindObjectsOfType<Canvas>();
+        foreach (Canvas canvas in allCanvas)
+        {
+            Text[] textsInCanvas = canvas.GetComponentsInChildren<Text>();
+            foreach (Text text in textsInCanvas)
+            {
+                if (text.name.ToLower().Contains("score") && !text.name.ToLower().Contains("high"))
+                {
+                    scoreText = text;
+                    scoreText.text = "SCORE: " + PlayerController.currentScore.ToString();
+                    if (enableDebugLogs)
+                        Debug.Log("✅ Found Score Text in Canvas: " + text.name);
+                    return;
+                }
+            }
+        }
+
+        if (enableDebugLogs)
+            Debug.LogWarning("⚠️ Score Text not found!");
+    }
+
+    private void UpdateOtherHUDElements()
+    {
+        if (livesText != null)
+        {
+            PlayerController player = FindObjectOfType<PlayerController>();
+            if (player != null)
+            {
+                livesText.text = "HEALTH: " + player.GetCurrentHealth() + "/" + player.GetMaxHealth();
+            }
+        }
+
+        if (levelText != null)
+            levelText.text = "LEVEL: " + currentLevelName;
+
+        if (timeText != null)
+        {
+            float gameTime = Time.time - gameStartTime;
+            int minutes = Mathf.FloorToInt(gameTime / 60);
+            int seconds = Mathf.FloorToInt(gameTime % 60);
+            timeText.text = string.Format("TIME: {0:00}:{1:00}", minutes, seconds);
+        }
+    }
+
+    // ===== SCORE MANAGEMENT =====
+    public void AddScoreAndUpdateUI(int points)
+    {
+        PlayerController.currentScore += points;
+        ForceUpdateHUD();
+        if (enableDebugLogs)
+            Debug.Log("💰 Score added via GameStateManager: +" + points + " | Total: " + PlayerController.currentScore);
+    }
+
+    public void UpdateScore(int newScore)
+    {
+        PlayerController.currentScore = newScore;
+        ForceUpdateHUD();
+    }
+
+    // ===== WIN CONDITIONS =====
+    private void CheckWinConditions()
+    {
+        if (gameWon || gameOver) return;
+
         bool shouldWin = false;
-        string winReason = "";
-        
-        // Điều kiện 1: Thắng bằng điểm số
+
         if (winByScore && PlayerController.currentScore >= winScore)
         {
             shouldWin = true;
-            winReason = $"Reached target score: {PlayerController.currentScore}/{winScore}";
+            if (enableDebugLogs)
+                Debug.Log("🏆 Win by Score: " + PlayerController.currentScore + " >= " + winScore);
         }
-        
-        // Điều kiện 2: Thắng bằng tiêu diệt hết enemy
-        if (winByEnemyCount && !shouldWin)
-        {
-            int enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
-            if (enemyCount <= 0)
-            {
-                shouldWin = true;
-                winReason = "All enemies defeated!";
-            }
-        }
-        
-        // Điều kiện 3: Thắng bằng thời gian sống sót
-        if (winByTime && !shouldWin)
+
+        if (winByTime)
         {
             float gameTime = Time.time - gameStartTime;
             if (gameTime >= gameTimeLimit)
             {
                 shouldWin = true;
-                winReason = $"Survived {gameTimeLimit} seconds!";
+                if (enableDebugLogs)
+                    Debug.Log("🏆 Win by Time: " + gameTime + " >= " + gameTimeLimit);
             }
         }
-        
+
+        if (winByEnemyCount)
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            if (enemies.Length == 0)
+            {
+                Invoke("CheckEnemiesAgain", 5f);
+            }
+        }
+
         if (shouldWin)
         {
-            Debug.Log($"🎉 WIN CONDITION REACHED! Reason: {winReason}");
             TriggerGameWin();
         }
     }
-    
-    private void CheckGameOverCondition()
+
+    private void CheckEnemiesAgain()
     {
-        if (isGameOver || isGameWin) return;
-        
-        // Tự động trigger game over nếu không có player trong scene
-        PlayerController player = FindAnyObjectByType<PlayerController>();
-        if (player == null)
+        if (gameWon || gameOver) return;
+
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies.Length == 0)
         {
-            Debug.Log("💀 AUTO GAME OVER: No player found in scene");
-            TriggerGameOver();
-            return;
-        }
-        
-        // Có thể thêm các điều kiện Game Over khác ở đây:
-        // - Hết thời gian (countdown timer)
-        // - Không còn lives
-        // - etc.
-    }
-    
-    private void HandleTestKeys()
-    {
-        // Test keys
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            Debug.Log("🔥 Testing Game Over");
-            TriggerGameOver();
-        }
-        
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            Debug.Log("🎉 Testing Game Win");
+            if (enableDebugLogs)
+                Debug.Log("🏆 Win by Enemy Count: All enemies eliminated");
             TriggerGameWin();
         }
-        
-        if (Input.GetKeyDown(KeyCode.H))
+    }
+
+    // ===== GAME WIN SYSTEM =====
+    public void TriggerGameWin()
+    {
+        if (gameWon || gameOver) return;
+
+        gameWon = true;
+
+        if (bonusScore > 0)
         {
-            Debug.Log("🔄 Hiding all UI panels");
-            HideAllPanels();
+            PlayerController.currentScore += bonusScore;
+            ForceUpdateHUD();
+            if (enableDebugLogs)
+                Debug.Log("💰 Bonus score added: +" + bonusScore);
         }
-        
-        if (Input.GetKeyDown(KeyCode.P))
+
+        SaveHighScore();
+
+        if (gameWinPanel != null)
         {
-            Debug.Log("➕ Adding 100 points for testing");
-            PlayerController.AddScore(100);
+            gameWinPanel.SetActive(true);
         }
-        
-        // THÊM: Test kill all enemies
-        if (Input.GetKeyDown(KeyCode.K))
+
+        Time.timeScale = 0f;
+
+        if (enableDebugLogs)
+            Debug.Log("🏆 LEVEL COMPLETED! Final Score: " + PlayerController.currentScore);
+    }
+
+    // ===== GAME OVER SYSTEM =====
+    public void TriggerGameOver()
+    {
+        if (gameOver || gameWon) return;
+
+        gameOver = true;
+
+        if (enableDebugLogs)
+            Debug.Log("💀 GAME OVER! Final Score: " + PlayerController.currentScore);
+
+        SaveHighScore();
+        UpdateGameOverUI();
+
+        if (gameOverPanel != null)
         {
-            Debug.Log("💀 Killing all enemies for testing");
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach (GameObject enemy in enemies)
+            gameOverPanel.SetActive(true);
+            if (enableDebugLogs)
+                Debug.Log("✅ Game Over Panel activated");
+        }
+        else
+        {
+            if (enableDebugLogs)
+                Debug.LogWarning("⚠️ Game Over Panel not assigned! Using fallback.");
+            ShowFallbackGameOver();
+        }
+
+        Time.timeScale = 0f;
+    }
+
+    private void UpdateGameOverUI()
+    {
+        if (gameOverTitleText != null)
+        {
+            gameOverTitleText.text = "GAME OVER";
+        }
+
+        if (gameOverScoreText != null)
+        {
+            gameOverScoreText.text = "FINAL SCORE: " + PlayerController.currentScore.ToString();
+        }
+
+        int highScore = PlayerPrefs.GetInt("HighScore", 0);
+        bool isNewHighScore = PlayerController.currentScore > highScore;
+
+        if (gameOverHighScoreText != null)
+        {
+            if (isNewHighScore)
             {
-                Destroy(enemy);
+                gameOverHighScoreText.text = "NEW HIGH SCORE: " + PlayerController.currentScore.ToString();
+                gameOverHighScoreText.color = Color.yellow;
+            }
+            else
+            {
+                gameOverHighScoreText.text = "HIGH SCORE: " + highScore.ToString();
+                gameOverHighScoreText.color = Color.white;
             }
         }
     }
-    
-    // Method để lấy thông tin trạng thái game
-    public string GetGameStatusInfo()
+
+    private void ShowFallbackGameOver()
     {
-        int enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
-        float gameTime = Time.time - gameStartTime;
-        
-        string info = $"Score: {PlayerController.currentScore}";
-        
-        if (winByScore) info += $" (Target: {winScore})";
-        if (winByEnemyCount) info += $" | Enemies: {enemyCount}";
-        if (winByTime) info += $" | Time: {gameTime:F1}s/{gameTimeLimit}s";
-        
-        return info;
-    }
-    
-    // Public Methods
-    public void TriggerGameOver()
-    {
-        if (isGameOver || isGameWin) return;
-        
-        isGameOver = true;
-        Debug.Log("💀 GAME OVER TRIGGERED");
-        
-        // Phát âm thanh Game Over bằng AudioManager
-        if (AudioManager.instance != null)
+        if (enableDebugLogs)
         {
-            AudioManager.instance.PlayGameOverSound();
+            Debug.Log("💀 === GAME OVER ===");
+            Debug.Log("Final Score: " + PlayerController.currentScore);
+            Debug.Log("High Score: " + PlayerPrefs.GetInt("HighScore", 0));
+            Debug.Log("Press R: restart, M: menu, Q: quit");
+            Debug.Log("==================");
         }
-        
-        ShowPanel(gameOverPanel, gameOverCanvasGroup, "GAME OVER", Color.red, 
-                 gameOverFinalScoreText, gameOverHighScoreText, gameOverSound);
+
+        StartCoroutine(HandleFallbackInput());
     }
-    
-    public void TriggerGameWin()
+
+    private System.Collections.IEnumerator HandleFallbackInput()
     {
-        if (isGameOver || isGameWin) return;
-        
-        isGameWin = true;
-        Debug.Log("🎉 GAME WIN TRIGGERED");
-        
-        // Phát âm thanh Victory bằng AudioManager
-        if (AudioManager.instance != null)
+        while (gameOver && !gameWon)
         {
-            AudioManager.instance.PlayVictorySound();
-        }
-        
-        // Thêm bonus score
-        PlayerController.AddScore(bonusScore);
-        
-        ShowPanel(gameWinPanel, gameWinCanvasGroup, "🎉 LEVEL COMPLETE! 🎉", Color.yellow,
-                 gameWinFinalScoreText, gameWinHighScoreText, gameWinSound);
-                 
-        // Cập nhật level complete text
-        if (levelCompleteText != null)
-        {
-            levelCompleteText.text = "EXCELLENT WORK!";
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                RestartGame();
+                yield break;
+            }
+            else if (Input.GetKeyDown(KeyCode.M))
+            {
+                ReturnToMainMenu();
+                yield break;
+            }
+            else if (Input.GetKeyDown(KeyCode.Q))
+            {
+                QuitApplication();
+                yield break;
+            }
+
+            yield return null;
         }
     }
-    
-    private void ShowPanel(GameObject panel, CanvasGroup canvasGroup, string titleText, Color titleColor,
-                          Text scoreText, Text highScoreText, AudioClip soundEffect)
+
+    // ===== BUTTON SYSTEM =====
+    private void SetupButtonListeners()
     {
-        if (panel == null) 
+        if (enableDebugLogs)
+            Debug.Log("🎮 Setting up button listeners...");
+
+        try
         {
-            Debug.LogError($"Panel is null!");
-            return;
+            // Game Over buttons
+            if (gameOverRestartButton != null)
+            {
+                gameOverRestartButton.onClick.RemoveAllListeners();
+                gameOverRestartButton.onClick.AddListener(RestartGame);
+                if (enableDebugLogs)
+                    Debug.Log("✅ Restart button listener added");
+            }
+
+            if (gameOverMainMenuButton != null)
+            {
+                gameOverMainMenuButton.onClick.RemoveAllListeners();
+                gameOverMainMenuButton.onClick.AddListener(ReturnToMainMenu);
+                if (enableDebugLogs)
+                    Debug.Log("✅ Main Menu button listener added");
+            }
+
+            if (gameOverQuitButton != null)
+            {
+                gameOverQuitButton.onClick.RemoveAllListeners();
+                gameOverQuitButton.onClick.AddListener(QuitApplication);
+                if (enableDebugLogs)
+                    Debug.Log("✅ Quit button listener added");
+            }
+
+            // Win panel buttons
+            if (mainMenuButton != null)
+            {
+                mainMenuButton.onClick.RemoveAllListeners();
+                mainMenuButton.onClick.AddListener(SafeLoadMainMenuFromWin);
+            }
+
+            if (quitButton != null)
+            {
+                quitButton.onClick.RemoveAllListeners();
+                quitButton.onClick.AddListener(SafeQuitFromWin);
+            }
+
+            if (nextLevelButton != null)
+            {
+                nextLevelButton.onClick.RemoveAllListeners();
+                nextLevelButton.onClick.AddListener(SafeLoadNextLevel);
+            }
+
+            if (winMainMenuButton != null)
+            {
+                winMainMenuButton.onClick.RemoveAllListeners();
+                winMainMenuButton.onClick.AddListener(SafeLoadMainMenuFromWin);
+            }
+
+            if (winQuitButton != null)
+            {
+                winQuitButton.onClick.RemoveAllListeners();
+                winQuitButton.onClick.AddListener(SafeQuitFromWin);
+            }
+
+            // Pause menu buttons
+            if (resumeButton != null)
+            {
+                resumeButton.onClick.RemoveAllListeners();
+                resumeButton.onClick.AddListener(ResumeGame);
+            }
+
+            if (pauseMainMenuButton != null)
+            {
+                pauseMainMenuButton.onClick.RemoveAllListeners();
+                pauseMainMenuButton.onClick.AddListener(SafeLoadMainMenuFromPause);
+            }
+
+            if (pauseQuitButton != null)
+            {
+                pauseQuitButton.onClick.RemoveAllListeners();
+                pauseQuitButton.onClick.AddListener(SafeQuitFromPause);
+            }
+
+            if (enableDebugLogs)
+                Debug.Log("✅ All button listeners setup completed");
         }
-        
-        // Hiển thị panel
-        panel.SetActive(true);
-        
-        // Pause game
+        catch (System.Exception e)
+        {
+            Debug.LogError("❌ Button listener setup failed: " + e.Message);
+        }
+    }
+
+    // ===== GAME OVER BUTTON METHODS =====
+    public void RestartGame()
+    {
+        if (enableDebugLogs)
+            Debug.Log("🔄 Restarting game...");
+
+        gameOver = false;
+        gameWon = false;
+        Time.timeScale = 1f;
+
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
+
+        SafeRestartLevel();
+    }
+
+    public void ReturnToMainMenu()
+    {
+        if (enableDebugLogs)
+            Debug.Log("🏠 Returning to main menu...");
+
+        gameOver = false;
+        gameWon = false;
+        Time.timeScale = 1f;
+
+        SafeReturnToMainMenu();
+    }
+
+    public void QuitApplication()
+    {
+        if (enableDebugLogs)
+            Debug.Log("🔚 Quitting application...");
+
+        SafeQuitApplication();
+    }
+
+    // ===== SAFE METHODS =====
+    private void SafeRestartLevel()
+    {
+        try
+        {
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.RestartCurrentLevel();
+                if (enableDebugLogs)
+                    Debug.Log("✅ Restart via GameManager successful");
+            }
+            else
+            {
+                string currentScene = SceneManager.GetActiveScene().name;
+                SceneManager.LoadScene(currentScene);
+                if (enableDebugLogs)
+                    Debug.Log("✅ Fallback restart successful");
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("❌ Restart failed: " + e.Message);
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentSceneIndex);
+        }
+    }
+
+    private void SafeReturnToMainMenu()
+    {
+        try
+        {
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.LoadMainMenu();
+                if (enableDebugLogs)
+                    Debug.Log("✅ Main Menu via GameManager successful");
+            }
+            else
+            {
+                LoadMainMenuFallback();
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("❌ Main Menu load failed: " + e.Message);
+            LoadMainMenuFallback();
+        }
+    }
+
+    private void LoadMainMenuFallback()
+    {
+        string[] possibleMainMenuNames = { "MainMenu", "Menu", "StartMenu", "Main" };
+
+        foreach (string sceneName in possibleMainMenuNames)
+        {
+            try
+            {
+                if (Application.CanStreamedLevelBeLoaded(sceneName))
+                {
+                    SceneManager.LoadScene(sceneName);
+                    if (enableDebugLogs)
+                        Debug.Log("✅ Fallback main menu loaded: " + sceneName);
+                    return;
+                }
+            }
+            catch
+            {
+                continue;
+            }
+        }
+
+        try
+        {
+            SceneManager.LoadScene(0);
+            if (enableDebugLogs)
+                Debug.Log("✅ Loaded first scene as main menu");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("❌ All main menu fallbacks failed: " + e.Message);
+        }
+    }
+
+    private void SafeQuitApplication()
+    {
+        try
+        {
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.QuitGame();
+                if (enableDebugLogs)
+                    Debug.Log("✅ Quit via GameManager successful");
+            }
+            else
+            {
+                QuitGameDirect();
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("❌ Quit via GameManager failed: " + e.Message);
+            QuitGameDirect();
+        }
+    }
+
+    private void QuitGameDirect()
+    {
+        if (enableDebugLogs)
+            Debug.Log("🔚 Direct application quit");
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        if (enableDebugLogs)
+            Debug.Log("✅ Editor play mode stopped");
+#else
+        Application.Quit();
+        if (enableDebugLogs)
+            Debug.Log("✅ Application quit requested");
+#endif
+    }
+
+    // ===== CONTEXT-SPECIFIC SAFE METHODS =====
+    private void SafeLoadMainMenuFromWin()
+    {
+        gameWon = false;
+        Time.timeScale = 1f;
+        SafeReturnToMainMenu();
+    }
+
+    private void SafeLoadMainMenuFromPause()
+    {
+        gamePaused = false;
+        Time.timeScale = 1f;
+        SafeReturnToMainMenu();
+    }
+
+    private void SafeQuitFromWin()
+    {
+        gameWon = false;
+        Time.timeScale = 1f;
+        SafeQuitApplication();
+    }
+
+    private void SafeQuitFromPause()
+    {
+        gamePaused = false;
+        Time.timeScale = 1f;
+        SafeQuitApplication();
+    }
+
+    private void SafeLoadNextLevel()
+    {
+        gameWon = false;
+        Time.timeScale = 1f;
+
+        try
+        {
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.LoadNextLevel();
+            }
+            else
+            {
+                SafeRestartLevel();
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("❌ Next level load failed: " + e.Message);
+            SafeRestartLevel();
+        }
+    }
+
+    // ===== PAUSE/RESUME SYSTEM =====
+    public void PauseGame()
+    {
+        gamePaused = true;
         Time.timeScale = 0f;
-        PlayerController.isGamePaused = true;
-        
-        // Force update UI
-        Canvas.ForceUpdateCanvases();
-        
-        // Cập nhật điểm số
-        UpdateScoreDisplay(scoreText, titleText, titleColor);
-        
-        // Cập nhật high score
-        UpdateHighScore(highScoreText);
-        
-        // Animation fade in
-        if (canvasGroup != null)
-        {
-            StartCoroutine(FadeInPanel(canvasGroup));
-        }
-        
-        // Phát âm thanh
-        PlaySound(soundEffect);
-        
-        Debug.Log($"Panel displayed: {panel.name}");
+
+        if (pauseMenuPanel != null)
+            pauseMenuPanel.SetActive(true);
+
+        if (enableDebugLogs)
+            Debug.Log("⏸️ Game Paused");
     }
-    
-    private void UpdateScoreDisplay(Text scoreText, string titleText, Color titleColor)
+
+    public void ResumeGame()
     {
-        if (scoreText != null)
+        gamePaused = false;
+        Time.timeScale = 1f;
+
+        if (pauseMenuPanel != null)
+            pauseMenuPanel.SetActive(false);
+
+        if (enableDebugLogs)
+            Debug.Log("▶️ Game Resumed");
+    }
+
+    // ===== UTILITY METHODS =====
+    private string GetCurrentLevelDisplayName()
+    {
+        string sceneName = SceneManager.GetActiveScene().name.ToLower();
+
+        switch (sceneName)
         {
-            scoreText.text = $"{titleText}\n\nFinal Score: {PlayerController.currentScore:N0}";
-            scoreText.color = titleColor;
+            case "scene1": case "level1": case "menuscene": return "Level 1";
+            case "scene2": case "level2": return "Level 2";
+            case "scene3": case "level3": return "Level 3";
+            case "bosslevel": case "finallevel": return "Boss Level";
+            default: return "Unknown Level";
         }
     }
-    
-    private void UpdateHighScore(Text highScoreText)
+
+    private void SaveHighScore()
     {
-        if (highScoreText == null) return;
-        
         int currentHighScore = PlayerPrefs.GetInt("HighScore", 0);
-        
         if (PlayerController.currentScore > currentHighScore)
         {
             PlayerPrefs.SetInt("HighScore", PlayerController.currentScore);
             PlayerPrefs.Save();
-            currentHighScore = PlayerController.currentScore;
-            
-            highScoreText.text = $"🏆 NEW HIGH SCORE: {currentHighScore:N0} 🏆";
-            highScoreText.color = Color.yellow;
-            
-            Debug.Log($"🏆 New High Score: {currentHighScore}");
+
+            if (enableDebugLogs)
+                Debug.Log("🏆 NEW HIGH SCORE: " + PlayerController.currentScore);
         }
-        else
+    }
+
+    // ===== PUBLIC GETTERS =====
+    public bool IsGameWon() { return gameWon; }
+    public bool IsGameOver() { return gameOver; }
+    public bool IsGamePaused() { return gamePaused; }
+    public int GetCurrentScore() { return PlayerController.currentScore; }
+
+    // ===== TEST METHODS =====
+    public void TestScoreIncrease(int points = 50)
+    {
+        AddScoreAndUpdateUI(points);
+    }
+
+    public void TestAllButtons()
+    {
+        if (enableDebugLogs)
         {
-            highScoreText.text = $"High Score: {currentHighScore:N0}";
-            highScoreText.color = Color.white;
+            Debug.Log("🧪 === BUTTON TEST ===");
+            Debug.Log("Restart Button: " + (gameOverRestartButton != null ? "✅" : "❌"));
+            Debug.Log("Main Menu Button: " + (gameOverMainMenuButton != null ? "✅" : "❌"));
+            Debug.Log("Quit Button: " + (gameOverQuitButton != null ? "✅" : "❌"));
+            Debug.Log("GameManager.instance: " + (GameManager.instance != null ? "✅" : "❌"));
+            Debug.Log("==================");
         }
     }
-    
-    private IEnumerator FadeInPanel(CanvasGroup canvasGroup)
+
+    public void ManualRestartGame()
     {
-        if (canvasGroup == null) yield break;
-        
-        canvasGroup.alpha = 0f;
-        float elapsedTime = 0f;
-        
-        while (elapsedTime < fadeInDuration)
-        {
-            canvasGroup.alpha = Mathf.Lerp(0f, 1f, elapsedTime / fadeInDuration);
-            elapsedTime += Time.unscaledDeltaTime;
-            yield return null;
-        }
-        
-        canvasGroup.alpha = 1f;
+        Debug.Log("🧪 Manual Restart triggered");
+        RestartGame();
     }
-    
-    private void PlaySound(AudioClip clip)
+
+    public void ManualReturnToMainMenu()
     {
-        if (clip != null)
-        {
-            // Ưu tiên dùng AudioManager nếu có
-            if (AudioManager.instance != null)
-            {
-                AudioManager.instance.PlaySFX(clip);
-            }
-            else
-            {
-                // Fallback: dùng AudioSource tạm thời
-                GameObject tempAudio = new GameObject("TempAudio");
-                AudioSource audioSource = tempAudio.AddComponent<AudioSource>();
-                audioSource.clip = clip;
-                audioSource.Play();
-                Destroy(tempAudio, clip.length);
-            }
-        }
+        Debug.Log("🧪 Manual Main Menu triggered");
+        ReturnToMainMenu();
     }
-    
-    public void HideAllPanels()
+
+    public void ManualQuitApplication()
     {
-        if (gameOverPanel != null) gameOverPanel.SetActive(false);
-        if (gameWinPanel != null) gameWinPanel.SetActive(false);
-        
-        // Resume game
-        Time.timeScale = 1f;
-        PlayerController.isGamePaused = false;
-        
-        // Reset states
-        isGameOver = false;
-        isGameWin = false;
+        Debug.Log("🧪 Manual Quit triggered");
+        QuitApplication();
     }
-    
-    // Button Event Handlers
-    public void LoadNextLevel()
+
+    public void EnableDebugMode(bool enable)
     {
-        Debug.Log($"🚀 Loading next level: {nextSceneName}");
-        ResetGameState();
-        SceneManager.LoadScene(nextSceneName);
+        enableDebugLogs = enable;
+        showDebugInfo = enable;
+        if (enableDebugLogs)
+            Debug.Log("🎮 GameStateManager Debug mode " + (enable ? "enabled" : "disabled"));
     }
-    
-    public void RestartGame(string source = "")
+
+    public void SetWinByEnemyCount(bool enable)
     {
-        Debug.Log($"🔄 Restarting game from: {source}");
-        ResetGameState();
-        PlayerController.currentScore = 0;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-    
-    public void GoToMainMenu(string source = "")
-    {
-        Debug.Log($"🏠 Going to main menu from: {source}");
-        ResetGameState();
-        PlayerController.currentScore = 0;
-        SceneManager.LoadScene(1); // Main menu scene
-    }
-    
-    public void QuitGame()
-    {
-        Debug.Log("🚪 Quitting game");
-        
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
-    }
-    
-    private void ResetGameState()
-    {
-        Time.timeScale = 1f;
-        PlayerController.isGamePaused = false;
-        isGameOver = false;
-        isGameWin = false;
-        canCheckWinCondition = false; // Tắt win condition check để tránh trigger ngay lập tức
-        
-        Debug.Log("🔄 Game state reset - Win condition check disabled temporarily");
-    }
-    
-    // Static Methods để gọi từ bên ngoài
-    public static void DisplayGameOver()
-    {
-        if (instance != null)
-        {
-            instance.TriggerGameOver();
-        }
-        else
-        {
-            Debug.LogError("❌ GameStateManager instance not found!");
-        }
-    }
-    
-    public static void DisplayGameWin()
-    {
-        if (instance != null)
-        {
-            instance.TriggerGameWin();
-        }
-        else
-        {
-            Debug.LogError("❌ GameStateManager instance not found!");
-        }
-    }
-    
-    // Utility Methods
-    public void SetWinScore(int newWinScore)
-    {
-        winScore = newWinScore;
-        Debug.Log($"🎯 Win score changed to: {winScore}");
-    }
-    
-    public int GetWinScore() => winScore;
-    public bool IsGameOver() => isGameOver;
-    public bool IsGameWin() => isGameWin;
-    public bool CanCheckWinCondition() => canCheckWinCondition;
-    
-    // Method để manual enable win condition check (nếu cần)
-    public void EnableWinConditionCheck()
-    {
-        canCheckWinCondition = true;
-        Debug.Log("✅ Win condition check manually ENABLED!");
-    }
-    
-    public void DisableWinConditionCheck()
-    {
-        canCheckWinCondition = false;
-        Debug.Log("❌ Win condition check manually DISABLED!");
-    }
-    
-    // Events khi player chết (gọi từ PlayerController)
-    public void OnPlayerDeath()
-    {
-        Debug.Log("💀 Player died - triggering game over");
-        TriggerGameOver();
+        winByEnemyCount = enable;
+        if (enableDebugLogs)
+            Debug.Log("🎮 Win by Enemy Count: " + (enable ? "Enabled" : "Disabled"));
     }
 }
