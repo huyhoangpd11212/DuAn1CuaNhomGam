@@ -3974,9 +3974,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'MEGA drtroy
-
-'
+  m_text: MEGA DESTROYER
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4199,7 +4197,7 @@ MonoBehaviour:
   gameWinPanel: {fileID: 1429116762}
   mainMenuButton: {fileID: 2036042697}
   quitButton: {fileID: 0}
-  nextLevelButton: {fileID: 0}
+  nextLevelButton: {fileID: 52282761}
   winMainMenuButton: {fileID: 707233232}
   winQuitButton: {fileID: 0}
   gameOverPanel: {fileID: 924322597}
@@ -4888,6 +4886,7 @@ MonoBehaviour:
     formationsInWave:
     - {fileID: 11400000, guid: dd0ff8c1ce4d84341ba985c5af38ff22, type: 2}
     - {fileID: 11400000, guid: e0bbdc356d821e6448d18a1999f3c38f, type: 2}
+    - {fileID: 11400000, guid: 1580bd78e0fc13a48b4fdf8051cae8f3, type: 2}
   spawnYPosition: 5
   formationSpawnInterval: 3
   bossSpawnDelay: 5
@@ -5086,9 +5085,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d287107bcb976e489baabf284717eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSceneName: Level2
+  gameSceneName: Scene1
   mainMenuSceneName: MainMenu
-  nextLevelSceneName: Level3
+  nextLevelSceneName: Scene2
   level2SceneName: Scene2
   level3SceneName: Scene3
   bossLevelSceneName: BossLevel
@@ -5963,15 +5962,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9c40c4baa4c604698effb09f88c594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossPrefab: {fileID: 543063590792862800, guid: 450e4501f5a841e49aabb0243bb7f9cd, type: 3}
+  bossPrefab: {fileID: 543063590792862800, guid: 8069201bdee26cc4fb635df7dddc4230, type: 3}
   bossInitialSpawnPoint: {fileID: 373503556}
   bossWarningText: {fileID: 1914260064}
   bossWarningAnimator: {fileID: 1914260063}
   warningDuration: 3
   screenShake: {fileID: 519420033}
   spawnByScore: 1
-  scoreThreshold: 500
-  spawnByTime: 0
+  scoreThreshold: 2000
+  spawnByTime: 1
   timeThreshold: 30
 --- !u!1 &1866057404
 GameObject:
@@ -6418,8 +6417,6 @@ GameObject:
   - component: {fileID: 1989943231}
   - component: {fileID: 1989943233}
   - component: {fileID: 1989943234}
-  - component: {fileID: 1989943236}
-  - component: {fileID: 1989943235}
   m_Layer: 5
   m_Name: NextLevel
   m_TagString: Untagged
@@ -6553,7 +6550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3f6cdbfabaa74040a7578ab41a3881e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSceneName: Level3
+  targetSceneName: LVL2
   keepScore: 1
   hideWinPanel: 1
   possibleWinPanelNames:
@@ -6563,37 +6560,6 @@ MonoBehaviour:
   - Win Panel
   - Panel_Win
   enableDebugLogs: 1
---- !u!114 &1989943235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1989943229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 269ff43c8848e46488ea2a02911884bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debugButtonClicks: 1
-  resetScoreOnRestart: 1
-  confirmBeforeRestart: 0
-  confirmMessage: Are you sure you want to restart the level?
---- !u!114 &1989943236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1989943229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc538757cb50e5544866b3abfcd8a753, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debugButtonClicks: 1
-  confirmBeforeReset: 0
-  confirmMessage: Are you sure you want to reset your score?
 --- !u!1 &2027258897
 GameObject:
   m_ObjectHideFlags: 0
@@ -6851,6 +6817,7 @@ GameObject:
   - component: {fileID: 2036042696}
   - component: {fileID: 2036042695}
   - component: {fileID: 2036042697}
+  - component: {fileID: 2036042698}
   m_Layer: 5
   m_Name: MenuButton
   m_TagString: Untagged
@@ -6972,6 +6939,28 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2036042698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036042693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3f6cdbfabaa74040a7578ab41a3881e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSceneName: MenuScene
+  keepScore: 1
+  hideWinPanel: 1
+  possibleWinPanelNames:
+  - WinPanel
+  - GameWinPanel
+  - VictoryPanel
+  - Win Panel
+  - Panel_Win
+  enableDebugLogs: 1
 --- !u!1 &1988959095634261
 GameObject:
   m_ObjectHideFlags: 0

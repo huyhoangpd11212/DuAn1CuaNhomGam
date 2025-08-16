@@ -165,7 +165,7 @@ public class GameStateManager : MonoBehaviour
             GUI.Label(new Rect(Screen.width - 315, 175, 300, 20),
                       "F4: Test, K: GameOver, L: Win");
             GUI.Label(new Rect(Screen.width - 315, 195, 300, 20),
-                      "R: Restart, M: Menu, Q: Quit");
+"R: Restart, M: Menu, Q: Quit");
         }
     }
 
@@ -892,7 +892,8 @@ public class GameStateManager : MonoBehaviour
     public bool IsGameWon() { return gameWon; }
     public bool IsGameOver() { return gameOver; }
     public bool IsGamePaused() { return gamePaused; }
-    public int GetCurrentScore() { return PlayerController.currentScore; }
+
+public int GetCurrentScore() { return PlayerController.currentScore; }
 
     // ===== TEST METHODS =====
     public void TestScoreIncrease(int points = 50)

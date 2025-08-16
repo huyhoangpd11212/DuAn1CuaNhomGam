@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e371901751f45574e9be9a1fb2ad250f, type: 3}
-  m_Name: Formation_V_Shape
+  m_Name: DoiHinh1Lvl1
   m_EditorClassIdentifier: 
   formationName: DH1
   spawnPoints:
@@ -32,5 +32,9 @@ MonoBehaviour:
     offset: {x: 4, y: 5}
   - enemyPrefab: {fileID: 5591819920349484971, guid: 40244d33ab833f941ac41c0c2e13906e, type: 3}
     offset: {x: -4, y: 5}
+  - enemyPrefab: {fileID: 5591819920349484971, guid: 40244d33ab833f941ac41c0c2e13906e, type: 3}
+    offset: {x: -5, y: 6}
+  - enemyPrefab: {fileID: 5591819920349484971, guid: 40244d33ab833f941ac41c0c2e13906e, type: 3}
+    offset: {x: 5, y: 6}
   descentSpeed: 2
   targetY: 0

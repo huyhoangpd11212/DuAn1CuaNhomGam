@@ -421,6 +421,8 @@ GameObject:
   - component: {fileID: 52282760}
   - component: {fileID: 52282759}
   - component: {fileID: 52282761}
+  - component: {fileID: 52282763}
+  - component: {fileID: 52282762}
   m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
@@ -529,19 +531,38 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 52282759}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1553590651}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ResetScoreButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &52282762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52282757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc538757cb50e5544866b3abfcd8a753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugButtonClicks: 1
+  confirmBeforeReset: 0
+  confirmMessage: Are you sure you want to reset your score?
+--- !u!114 &52282763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52282757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 269ff43c8848e46488ea2a02911884bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugButtonClicks: 1
+  resetScoreOnRestart: 1
+  confirmBeforeRestart: 0
+  confirmMessage: Are you sure you want to restart the level?
 --- !u!1 &54852081
 GameObject:
   m_ObjectHideFlags: 0
@@ -1298,6 +1319,8 @@ GameObject:
   - component: {fileID: 429996788}
   - component: {fileID: 429996787}
   - component: {fileID: 429996789}
+  - component: {fileID: 429996791}
+  - component: {fileID: 429996790}
   m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
@@ -1406,19 +1429,38 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 429996787}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1553590651}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ResetScoreForButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &429996790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429996785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 269ff43c8848e46488ea2a02911884bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugButtonClicks: 1
+  resetScoreOnRestart: 1
+  confirmBeforeRestart: 0
+  confirmMessage: Are you sure you want to restart the level?
+--- !u!114 &429996791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429996785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc538757cb50e5544866b3abfcd8a753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugButtonClicks: 1
+  confirmBeforeReset: 0
+  confirmMessage: Are you sure you want to reset your score?
 --- !u!1 &474354369
 GameObject:
   m_ObjectHideFlags: 0
@@ -2574,8 +2616,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 0}
+  m_AnchoredPosition: {x: -1.6876984, y: 0.28140068}
+  m_SizeDelta: {x: 12.1241, y: -29.8153}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &646986602
 MonoBehaviour:
@@ -2590,14 +2632,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.02410984, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2707,6 +2749,7 @@ GameObject:
   - component: {fileID: 707233234}
   - component: {fileID: 707233233}
   - component: {fileID: 707233232}
+  - component: {fileID: 707233236}
   m_Layer: 5
   m_Name: Menu Button
   m_TagString: Untagged
@@ -2828,6 +2871,28 @@ RectTransform:
   m_AnchoredPosition: {x: 26.418999, y: -285}
   m_SizeDelta: {x: 353.2862, y: 54.725403}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &707233236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707233231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3f6cdbfabaa74040a7578ab41a3881e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSceneName: MenuScene
+  keepScore: 1
+  hideWinPanel: 1
+  possibleWinPanelNames:
+  - WinPanel
+  - GameWinPanel
+  - VictoryPanel
+  - Win Panel
+  - Panel_Win
+  enableDebugLogs: 1
 --- !u!1 &790156856
 GameObject:
   m_ObjectHideFlags: 0
@@ -3908,8 +3973,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -1.2, y: 54.7}
+  m_SizeDelta: {x: 246.1865, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1158050863
 MonoBehaviour:
@@ -3958,15 +4023,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 18
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -4043,7 +4108,7 @@ RectTransform:
   m_Father: {fileID: 1522443959}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -0.000030518, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4889,7 +4954,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1522443959
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5022,15 +5087,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d287107bcb976e489baabf284717eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSceneName: Scene1
-  mainMenuSceneName: MainMenu
-  nextLevelSceneName: Scene2
-  level2SceneName: Scene2
+  gameSceneName: Level1
+  mainMenuSceneName: MenuScene
+  nextLevelSceneName: Level2
+  level2SceneName: Level2
   level3SceneName: Scene3
   bossLevelSceneName: BossLevel
   resetScoreOnLoad: 0
   carryScoreBetweenLevels: 1
-  level1RequiredScore: 1000
+  level1RequiredScore: 1
   level2RequiredScore: 2000
   bossLevelRequiredScore: 3000
   enableDebugLogs: 1
@@ -5040,6 +5105,15 @@ MonoBehaviour:
   victoryScreenDuration: 5
   showVictoryLog: 1
   autoUpdateVictoryScreen: 1
+  gameOverScreenDuration: 5
+  showGameOverLog: 1
+  autoUpdateGameOverScreen: 1
+  saveScoreOnGameOver: 1
+  level2SpeedMultiplier: 1.3
+  level2HealthMultiplier: 1.2
+  level2EnemyColor: {r: 1, g: 0.8, b: 0.8, a: 1}
+  debugResetSystem: 1
+  maxResetAttempts: 5
   confirmResetScore: 0
   resetScoreKeepsUI: 1
   forceUIRefreshOnReset: 1
@@ -5430,7 +5504,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
+  m_AnchoredPosition: {x: -5.0000153, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1793120915
@@ -5469,8 +5543,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7, y: 0}
-  m_SizeDelta: {x: 160, y: 20}
+  m_AnchoredPosition: {x: 1.4758, y: -0.1815}
+  m_SizeDelta: {x: 359.1441, y: 59.763}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1793120917
 MonoBehaviour:
@@ -6209,6 +6283,8 @@ GameObject:
   - component: {fileID: 1989943231}
   - component: {fileID: 1989943233}
   - component: {fileID: 1989943234}
+  - component: {fileID: 1989943236}
+  - component: {fileID: 1989943235}
   m_Layer: 5
   m_Name: NextLevel
   m_TagString: Untagged
@@ -6352,6 +6428,37 @@ MonoBehaviour:
   - Win Panel
   - Panel_Win
   enableDebugLogs: 1
+--- !u!114 &1989943235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989943229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 269ff43c8848e46488ea2a02911884bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugButtonClicks: 1
+  resetScoreOnRestart: 1
+  confirmBeforeRestart: 0
+  confirmMessage: Are you sure you want to restart the level?
+--- !u!114 &1989943236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989943229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc538757cb50e5544866b3abfcd8a753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugButtonClicks: 1
+  confirmBeforeReset: 0
+  confirmMessage: Are you sure you want to reset your score?
 --- !u!1 &2027258897
 GameObject:
   m_ObjectHideFlags: 0
@@ -6609,6 +6716,7 @@ GameObject:
   - component: {fileID: 2036042696}
   - component: {fileID: 2036042695}
   - component: {fileID: 2036042697}
+  - component: {fileID: 2036042698}
   m_Layer: 5
   m_Name: MenuButton
   m_TagString: Untagged
@@ -6718,9 +6826,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
-        m_MethodName: OnMainMenuButton
+      - m_Target: {fileID: 1553590651}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: LoadMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6730,6 +6838,28 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2036042698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036042693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3f6cdbfabaa74040a7578ab41a3881e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSceneName: MenuScene
+  keepScore: 1
+  hideWinPanel: 1
+  possibleWinPanelNames:
+  - WinPanel
+  - GameWinPanel
+  - VictoryPanel
+  - Win Panel
+  - Panel_Win
+  enableDebugLogs: 1
 --- !u!1 &1988959095634261
 GameObject:
   m_ObjectHideFlags: 0

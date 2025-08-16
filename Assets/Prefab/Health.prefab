@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 0
-  itemValue: 1
+  itemValue: 0
   dropSpeed: 2
 --- !u!61 &6088250954198372646
 BoxCollider2D:

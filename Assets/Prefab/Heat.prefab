@@ -102,8 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f2f2c0c724e614ea49332485bdcee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 2
-  itemValue: 1
+  itemType: 0
+  itemValue: 0
   dropSpeed: 2
 --- !u!61 &2953059169310974757
 BoxCollider2D:
