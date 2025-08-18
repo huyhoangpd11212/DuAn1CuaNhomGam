@@ -6,10 +6,10 @@ public class GameManager : MonoBehaviour
 {
     [Header("Scene Names")]
     [SerializeField] private string gameSceneName = "Scene1";
-    [SerializeField] private string mainMenuSceneName = "MainMenu";
+    [SerializeField] private string mainMenuSceneName = "0";
     [SerializeField] private string nextLevelSceneName = "Scene2";
-    [SerializeField] private string level2SceneName = "Scene2";
-    [SerializeField] private string level3SceneName = "Scene3";
+    [SerializeField] private string level2SceneName = "Level2";
+    [SerializeField] private string level3SceneName = "Level3";
     [SerializeField] private string bossLevelSceneName = "BossLevel";
 
     [Header("Game Settings")]

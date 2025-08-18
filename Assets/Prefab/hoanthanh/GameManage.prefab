@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3220303907124655633
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5040128438583540170}
+  - component: {fileID: 6813353011419776649}
+  - component: {fileID: 4878986880885954274}
+  m_Layer: 0
+  m_Name: GameManage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5040128438583540170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3220303907124655633}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1030.6315, y: 543.11084, z: -5.442703}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6813353011419776649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3220303907124655633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0570c1d08812dcc49af19c135e5fdc07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenuUI: {fileID: 0}
+  menuSceneName: MenuScene
+--- !u!114 &4878986880885954274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3220303907124655633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d287107bcb976e489baabf284717eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameSceneName: Level1
+  mainMenuSceneName: MainMenu
+  nextLevelSceneName: Level2
+  level2SceneName: Level2
+  level3SceneName: Level3
+  bossLevelSceneName: BossLevel
+  resetScoreOnLoad: 0
+  carryScoreBetweenLevels: 1
+  level1RequiredScore: 1
+  level2RequiredScore: 2000
+  bossLevelRequiredScore: 3000
+  enableDebugLogs: 1
+  showScoreInGUI: 1
+  autoUpdateUI: 1
+  uiUpdateRate: 0.1
+  victoryScreenDuration: 5
+  showVictoryLog: 1
+  autoUpdateVictoryScreen: 1
+  gameOverScreenDuration: 5
+  showGameOverLog: 1
+  autoUpdateGameOverScreen: 1
+  saveScoreOnGameOver: 1
+  level2SpeedMultiplier: 1.3
+  level2HealthMultiplier: 1.2
+  level2EnemyColor: {r: 1, g: 0.8, b: 0.8, a: 1}
+  debugResetSystem: 1
+  maxResetAttempts: 5
+  confirmResetScore: 0
+  resetScoreKeepsUI: 1
+  forceUIRefreshOnReset: 1
+  allowInstantReset: 1

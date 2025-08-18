@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 public class NextLevelButton : MonoBehaviour
 {
     [Header("Cấu hình Scene")]
-    [SerializeField] private string targetSceneName = "Scene2"; // Scene bạn muốn chuyển đến
-    [SerializeField] private bool keepScore = true; // Có giữ điểm số không
+    [SerializeField] private string targetSceneName = "scene2"; // Scene bạn muốn chuyển đến
+    [SerializeField] private bool keepScore = false; // Có giữ điểm số không
     [SerializeField] private bool hideWinPanel = true; // Có ẩn win panel không
 
     [Header("Tên Win Panel (tự động tìm)")]
@@ -21,6 +21,7 @@ public class NextLevelButton : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] private bool enableDebugLogs = true;
+
 
     private Button nextButton;
     private GameObject foundWinPanel;

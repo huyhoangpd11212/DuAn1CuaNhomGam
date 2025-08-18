@@ -2801,9 +2801,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VictoryUI, Assembly-CSharp
-        m_MethodName: OnMenuClicked
+      - m_Target: {fileID: 4878986880885954274, guid: b3c1b86704e03834ca54f2b12086a319, type: 3}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: LoadMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6423,7 +6423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1989943230
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6817,7 +6817,6 @@ GameObject:
   - component: {fileID: 2036042696}
   - component: {fileID: 2036042695}
   - component: {fileID: 2036042697}
-  - component: {fileID: 2036042698}
   m_Layer: 5
   m_Name: MenuButton
   m_TagString: Untagged
@@ -6927,9 +6926,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
-        m_MethodName: OnMainMenuButton
+      - m_Target: {fileID: 4878986880885954274, guid: b3c1b86704e03834ca54f2b12086a319, type: 3}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: LoadMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6939,28 +6938,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2036042698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2036042693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3f6cdbfabaa74040a7578ab41a3881e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetSceneName: MenuScene
-  keepScore: 1
-  hideWinPanel: 1
-  possibleWinPanelNames:
-  - WinPanel
-  - GameWinPanel
-  - VictoryPanel
-  - Win Panel
-  - Panel_Win
-  enableDebugLogs: 1
 --- !u!1 &1988959095634261
 GameObject:
   m_ObjectHideFlags: 0
